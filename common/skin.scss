@@ -1,0 +1,96 @@
+body{
+	font-size: 26upx;
+	color: #666;
+}
+
+a{
+	color: #666;
+}
+a:hover{
+	color: #000032;
+}
+image{
+	max-width: 100%;
+	vertical-align: middle;
+}
+navigator{
+	display: inline-block;
+}
+
+.clearfix:before {
+	content: ' ';
+	display: table;
+}
+
+.clearfix:after {
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+.t_l {
+	text-align: left;
+}
+
+.t_c {
+	text-align: center;
+}
+
+.t_r {
+	text-align: right;
+}
+
+.left,
+.fl {
+	float: left;
+}
+
+.right,
+.fr {
+	float: right;
+}
+
+
+
+/* 无数据样式 */
+.empt{
+	text-align: center;
+	padding-top: 300upx;
+	font-size: 30upx;
+	color: #999;
+}
+
+@function pxToUpx($n) {
+  @return $n + upx;
+}
+$main:#009193;
+$white:#fff;
+$ft-333:#333;
+$ft-666:#666;
+$ft-999:#999;
+$ft-cf:#cfcfcf;
+$borderColor:#EDEDED; // 边框颜色
+
+.btn{
+	display: block;
+	width: 80%;
+	height: 86upx;
+	line-height: 86upx;
+	margin-top: 59upx;
+	text-align: center;
+	font-size: 30upx;
+	color: #fff;
+	border-radius: 20upx;
+	background: $main;
+	margin: 0 auto;
+}
+view{
+	font-size:36upx;
+	color:$ft-666;
+}
+
+/* 占位符class */
+.placeholder{
+	color:#d8d8d8;
+	font-size: 12upx;
+}
