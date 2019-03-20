@@ -12,7 +12,7 @@
 					<input focus v-model="info.password" :password="isOpen?false:true" type="text" maxlength="20" placeholder="请输入6-20位密码"
 					 placeholder-class="placeholder" value="" />
 					<view class="eye" @click="isOpen=!isOpen">
-						<text class="iconfont" v-if="isOpen">&#xe604;</text>
+						<text class="iconfont" v-if="isOpen">&#xe681;</text>
 						<text class="iconfont" v-else>&#xe663;</text>
 					</view>
 				</view>
@@ -21,7 +21,7 @@
 				登录
 			</view>
 			<view class="link">
-				<navigator>找回密码</navigator>
+				<navigator url="../index/index">找回密码</navigator>
 			</view>
 			<view class="other">
 				<view class="p">
@@ -29,7 +29,7 @@
 				</view>
 				<view class="link">
 					<navigator url="../login/login">微信登录</navigator>
-					<navigator>注册</navigator>
+					<navigator url="../index/index">注册</navigator>
 				</view>
 			</view>
 		</view>
@@ -108,7 +108,6 @@
 
 <style scoped="" lang="scss">
 	@import '../../common/skin.scss';
-	.placeholder{color:red}
 	.loginMobile {
 		.p {
 			text-align: center;

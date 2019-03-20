@@ -24,61 +24,6 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-page.data-v-ee5577d0 {
-  font-size: 26rpx;
-  color: #666;
-}
-._a.data-v-ee5577d0 {
-  color: #666;
-}
-._a.data-v-ee5577d0:hover {
-  color: #000032;
-}
-image.data-v-ee5577d0 {
-  max-width: 100%;
-  vertical-align: middle;
-}
-navigator.data-v-ee5577d0 {
-  display: inline-block;
-}
-.clearfix.data-v-ee5577d0:before {
-  content: ' ';
-  display: table;
-}
-.clearfix.data-v-ee5577d0:after {
-  content: ' ';
-  display: table;
-  clear: both;
-}
-.t_l.data-v-ee5577d0 {
-  text-align: left;
-}
-.t_c.data-v-ee5577d0 {
-  text-align: center;
-}
-.t_r.data-v-ee5577d0 {
-  text-align: right;
-}
-.left.data-v-ee5577d0,
-.fl.data-v-ee5577d0 {
-  float: left;
-}
-.right.data-v-ee5577d0,
-.fr.data-v-ee5577d0 {
-  float: right;
-}
-/* 占位符class */
-.placeholder.data-v-ee5577d0 {
-  color: #C9C9C9;
-  font-size: 12rpx;
-}
-/* 无数据样式 */
-.empt.data-v-ee5577d0 {
-  text-align: center;
-  padding-top: 300rpx;
-  font-size: 30rpx;
-  color: #999;
-}
 .btn.data-v-ee5577d0 {
   display: block;
   width: 80%;
@@ -91,10 +36,6 @@ navigator.data-v-ee5577d0 {
   border-radius: 20rpx;
   background: #009193;
   margin: 0 auto;
-}
-view.data-v-ee5577d0 {
-  font-size: 36rpx;
-  color: #666;
 }
 .loginMobile .p.data-v-ee5577d0 {
   text-align: center;
@@ -144,8 +85,6 @@ view.data-v-ee5577d0 {
   width: 80%;
   margin: 0 auto;
   position: relative;
-  height: 110rpx;
-  line-height: 110rpx;
   border-bottom: 1px solid #EDEDED;
   background-repeat: no-repeat;
   background-position: left center;
@@ -155,20 +94,23 @@ view.data-v-ee5577d0 {
     position: relative;
     z-index: 0;
     width: 100%;
-    height: 100%;
+    height: 60rpx;
     padding-left: 68rpx;
     font-size: 30rpx;
+    margin: 25rpx 0;
 }
 .loginMobile .form .section.data-v-ee5577d0:first-child {
     margin-top: 156rpx;
 }
-.loginMobile .form .password .eye.data-v-ee5577d0 {
+.loginMobile .form .font.data-v-ee5577d0 {
   position: absolute;
-  right: 0;
+}
+.loginMobile .form .eye.data-v-ee5577d0 {
+  position: absolute;
+  right: 24rpx;
   top: 0;
   z-index: 10;
-  width: 20rpx;
+  width: 60rpx;
   height: 100%;
-  background-size: 20rpx;
 }
 

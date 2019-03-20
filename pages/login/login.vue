@@ -14,7 +14,7 @@
 				</view>
 				<view class="link">
 					<navigator url="../mobile/mobile">手机登录</navigator>
-					<navigator>注册</navigator>
+					<navigator url="../index/index">注册</navigator>
 				</view>
 			</view>
 		</view>

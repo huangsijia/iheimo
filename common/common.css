@@ -1,0 +1,68 @@
+
+body{
+	font-size: 26upx;
+	color: #666;
+}
+
+a{
+	color: #666;
+}
+a:hover{
+	color: #000032;
+}
+image{
+	max-width: 100%;
+	vertical-align: middle;
+}
+navigator{
+	display: inline-block;
+}
+
+.clearfix:before {
+	content: ' ';
+	display: table;
+}
+
+.clearfix:after {
+	content: ' ';
+	display: table;
+	clear: both;
+}
+
+.t_l {
+	text-align: left;
+}
+
+.t_c {
+	text-align: center;
+}
+
+.t_r {
+	text-align: right;
+}
+
+.left,
+.fl {
+	float: left;
+}
+
+.right,
+.fr {
+	float: right;
+}
+
+
+
+/* 无数据样式 */
+.empt{
+	text-align: center;
+	padding-top: 300upx;
+	font-size: 30upx;
+	color: #999;
+}
+
+/* 占位符class */
+.placeholder{
+	color: #C9C9C9;
+	font-size:26upx;
+}

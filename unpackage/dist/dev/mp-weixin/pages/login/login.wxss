@@ -24,56 +24,6 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-page.data-v-87a0b628 {
-  font-size: 26rpx;
-  color: #666;
-}
-._a.data-v-87a0b628 {
-  color: #666;
-}
-._a.data-v-87a0b628:hover {
-  color: #000032;
-}
-image.data-v-87a0b628 {
-  max-width: 100%;
-  vertical-align: middle;
-}
-navigator.data-v-87a0b628 {
-  display: inline-block;
-}
-.clearfix.data-v-87a0b628:before {
-  content: ' ';
-  display: table;
-}
-.clearfix.data-v-87a0b628:after {
-  content: ' ';
-  display: table;
-  clear: both;
-}
-.t_l.data-v-87a0b628 {
-  text-align: left;
-}
-.t_c.data-v-87a0b628 {
-  text-align: center;
-}
-.t_r.data-v-87a0b628 {
-  text-align: right;
-}
-.left.data-v-87a0b628,
-.fl.data-v-87a0b628 {
-  float: left;
-}
-.right.data-v-87a0b628,
-.fr.data-v-87a0b628 {
-  float: right;
-}
-/* 无数据样式 */
-.empt.data-v-87a0b628 {
-  text-align: center;
-  padding-top: 300rpx;
-  font-size: 30rpx;
-  color: #999;
-}
 .btn.data-v-87a0b628 {
   display: block;
   width: 80%;
@@ -86,15 +36,6 @@ navigator.data-v-87a0b628 {
   border-radius: 20rpx;
   background: #009193;
   margin: 0 auto;
-}
-view.data-v-87a0b628 {
-  font-size: 36rpx;
-  color: #666;
-}
-/* 占位符class */
-.placeholder.data-v-87a0b628 {
-  color: #d8d8d8;
-  font-size: 12rpx;
 }
 .login .box.data-v-87a0b628 {
   width: 194rpx;

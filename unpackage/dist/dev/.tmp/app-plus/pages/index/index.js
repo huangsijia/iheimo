@@ -8,7 +8,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0;var _default =\n\n\n\n\n\n\n\n\n{\n  data: function data() {\n    return {\n      title: 'Hello' };\n\n  },\n  onLoad: function onLoad() {\n\n  },\n  computed: {},\n\n  methods: {} };exports.default = _default;\n\n//# sourceURL=uni-app:///pages/index/index.vue?vue&type=script&lang=js&?51a3");
+eval("Object.defineProperty(exports, \"__esModule\", { value: true });exports.default = void 0;var _default =\n\n\n\n\n\n\n\n\n{\n  data: function data() {\n    return {\n      title: 'Hello' };\n\n  },\n  onLoad: function onLoad() {\n\n  },\n  computed: {},\n  methods: {} };exports.default = _default;\n\n//# sourceURL=uni-app:///pages/index/index.vue?vue&type=script&lang=js&?51a3");
 
 /***/ }),
 

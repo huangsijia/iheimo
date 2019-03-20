@@ -27,10 +27,10 @@
       "current": 0,
       "list": [
         {
-          "name": "mobile",
+          "name": "add",
           "query": "code=inviteNew&title=新手须知",
           "id": 0,
-          "pathName": "pages/mobile/mobile"
+          "pathName": "pages/add/add"
         }
       ]
     }
