@@ -4,6 +4,8 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
 	state: {
+		token: "",
+		userInfo: {},
 		hasLogin: false,
 		// 支出分类
 		expenses:[
@@ -18,23 +20,34 @@ export const store = new Vuex.Store({
 			{"img":"\ue6a9","msg":"医疗"},
 			{"img":"\ue683","msg":"其他"},
 		],
-		// 支出分类
+		// 收入分类
 		income:[
 			{"img":"\ue61c","msg":"工资"},
 			{"img":"\ue674","msg":"奖金"},
 			{"img":"\uea2d","msg":"红包"},
 			{"img":"\ue683","msg":"其他"},
 		],
-		keyList:['1','2','3','\ue6ac','4','5','6','+','7','8','9','-','C','0','.','完成']
+		keyList:['1','2','3','\ue6ac','4','5','6','+','7','8','9','-','C','0','.','完成'],
+		payList:[
+			{"img":"\ue6c5","msg":'支付宝'},
+			{"img":"\ue6ff","msg":'微信'},
+			{"img":"\ue605","msg":'银行卡'},
+			{"img":"\ue6b9","msg":'现金'},
+			{"img":"\ue643","msg":'转账'},
+		]
 	},
 	getters:{
 	},
 	mutations: {
-		login: (state) => {
+		login: (state,params) => {
+			state.userInfo = params.user;
+			state.token = params.token;
 			state.hasLogin = true;
 		},
 		logout: (state) => {
-			state.hasLogin = false;
+			state.userInfo = {};
+			state.token = "";
+            state.hasLogin = false;
 		},
 		
 	}

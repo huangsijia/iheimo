@@ -2,10 +2,9 @@
 	<view>
 		<view class="loginMobile">
 			<form class="form">
-				<view class="section mobile">
+				<view class="section msg">
 					<text class="iconfont font">&#xe60c;</text>
-					<input focus v-model="info.mobile" type="number" maxlength="11" placeholder="请输入11位手机号码" placeholder-class="placeholder"
-					 value="" />
+					<input focus v-model="info.msg" type="number" placeholder="请输入邮箱地址" placeholder-class="placeholder" value="" />
 				</view>
 				<view class="section password">
 					<text class="iconfont font">&#xe769;</text>
@@ -17,7 +16,7 @@
 					</view>
 				</view>
 			</form>
-			<view class="btn">
+			<view class="btn" @click="loginFun">
 				登录
 			</view>
 			<view class="link">
@@ -45,27 +44,28 @@
 			return {
 				// 表单数据
 				info: {
-					mobile: "", // 手机号码
-					password: "" // 密码
+					msg: "hmc_cici@hotmail.com", // 手机号码
+					password: "_hlj12345_" // 密码
 				},
-				isOpen: false // 密码眼睛是不是开着
+				isOpen: false ,// 密码眼睛是不是开着
+				redirect:""
 			};
 		},
 		methods: {
 			...mapMutations(['login']),
 			// 检验输入的数据
 			chechInfo() {
-				if (!this.$config.reg.mobileReg.test(this.info.mobile)) {
+				if (!this.$public.reg.mailReg.test(this.info.msg)) {
 					uni.showToast({
 						icon: "none",
-						title: '请输入正确的手机号码',
+						title: '请输入正确的邮箱地址',
 						duration: 2000
 					})
 
 					return false
 				}
 
-				if (!this.$config.reg.passwordReg.test(this.info.password)) {
+				if (!this.$public.reg.passwordReg.test(this.info.password)) {
 					uni.showToast({
 						icon: "none",
 						title: '请输入6-20位密码',
@@ -77,38 +77,55 @@
 				return true
 			},
 			// 登录
-			login() {
+			loginFun() {
 				if (!this.chechInfo()) {
 					return false
 				}
-
 				this.$public.API_GET({
-					url: "loginWithPwd",
+					url: "login",
+					type:"POST",
 					data: {
-						mobile: this.info.mobile,
-						pwd: this.info.password
+						userName: this.info.msg,
+						password: this.info.password
 					},
 					success: (res) => {
-						console.log(res)
-						if (!res.success) {
+						if (!res.data.success) {
 							uni.showToast({
 								icon: 'none',
-								title: res.data.msg
+								title: res.data.message
 							});
 							return false;
 						}
-
-						this.login(res.data.data);
+						this.login(res.data);
+						uni.setStorageSync("persion",res.data);
+						if (this.redirect) {
+							uni.reLaunch({
+								url: this.redirect
+							});							
+						} else {
+							uni.reLaunch({
+								url: '/pages/index/index'
+							});
+						}
 					}
 				});
 			},
+		},
+		onLoad(e) {
+			this.redirect = e.redirect;
+		},
+		mounted() {
+
 		}
 	}
 </script>
 
 <style scoped="" lang="scss">
 	@import '../../common/skin.scss';
+
 	.loginMobile {
+		padding-top: 120upx;
+
 		.p {
 			text-align: center;
 			display: block;
@@ -158,42 +175,21 @@
 		}
 
 		.form {
-
 			.section {
 				width: 80%;
 				margin: 0 auto;
-				position: relative;
+				padding: 30upx 0;
+				display: flex;
+				align-items: center;
 				border-bottom: 1px solid $borderColor;
-				background-repeat: no-repeat;
-				background-position: left center;
-				background-size: pxToUpx(48);
+
+				.font {
+					margin-right: 20upx;
+				}
 
 				input {
-					position: relative;
-					z-index: 0;
-					width: 100%;
-					height: pxToUpx(60);
-					padding-left: pxToUpx(68);
-					font-size: pxToUpx(30);
-					margin: pxToUpx(25) 0;
+					width: 80%;
 				}
-
-				&:first-child {
-					margin-top: 156upx;
-				}
-			}
-
-			.font {
-				position: absolute;
-			}
-
-			.eye {
-				position: absolute;
-				right: 24upx;
-				top: 0;
-				z-index: 10;
-				width: pxToUpx(60);
-				height: 100%;
 			}
 		}
 

@@ -2,20 +2,15 @@
 	<view class="key">	
 		<view class="category">
 			<view class="categoryView">
-				<view class="calendar">
-					3月20日
+				<view class="calendar" @click="calendarFun()">
+					{{date}}
 				</view>
-				<view class="payment">
-					支付宝
+				<view class="payment" @click="paymentFun()">
+					{{payMentTxt}}
 				</view>
 			</view>
-			<view class="categoryView">
-				<view class="person">
-					<text class="iconfont">&#xe604;</text>
-				</view>
-				<view class="remark">
-					<text class="iconfont">&#xe615;</text>
-				</view>
+			<view :class="['remark',{'on':remarkTxt}]"  @click="remarkFun()">
+				<text class="iconfont">&#xe615;</text>
 			</view>
 		</view>
 		<view class="table">
@@ -29,6 +24,7 @@
 <script>
 	import { mapState } from 'vuex'
 	export default {
+		props:['payMentTxt','remarkTxt','date'],
 		computed:{...mapState(['keyList']),},
 		data() {
 			return {
@@ -37,8 +33,17 @@
 		},
 		methods:{
 			num(item,index){
-				this.$emit("amountEmit",{item,index})
-			}
+				this.$emit("amountEmit",{item,index});
+			},
+			paymentFun(){
+				this.$emit("paymentEmit");
+			},
+			remarkFun(){
+				this.$emit("remarkEmit");
+			},
+			calendarFun(){
+				this.$emit("calendarEmit");
+			},
 		}
 	}
 </script>
@@ -48,7 +53,7 @@
 .key{
 	background: $bg;
 	.category{
-		padding: 25upx;
+		padding: 25upx 0 25upx 25upx;
 		display: flex;
 		justify-content: space-between;
 		.categoryView{
@@ -65,8 +70,19 @@
 			.iconfont{
 				color:$ft-999;
 			}
-			.person{
-				margin-right: 20upx;
+		}
+		.remark{
+			width: 25%;
+			display: flex;
+			align-items: center;
+			justify-content:center;
+			.iconfont{
+				font-size: 50upx;
+			}
+			&.on{
+				.iconfont{
+					color:$main;
+				}
 			}
 		}
 	}

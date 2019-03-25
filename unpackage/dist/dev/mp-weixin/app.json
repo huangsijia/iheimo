@@ -4,7 +4,8 @@
     "pages/add/add",
     "pages/home/home",
     "pages/login/login",
-    "pages/mobile/mobile"
+    "pages/mobile/mobile",
+    "pages/list/list"
   ],
   "subPackages": [],
   "window": {

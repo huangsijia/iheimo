@@ -30,11 +30,12 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
   },
   mounted: function mounted() {},
   onLoad: function onLoad() {
+    console.log(this.hasLogin);
     if (this.hasLogin) {
-      console.log("已经登录");
+      console.log(this.$store.state);
     } else {
       uni.redirectTo({
-        url: "/pages/login/login?redirect=/pages/home/home" });
+        url: "/pages/mobile/mobile?redirect=/pages/home/home" });
 
     }
   } };exports.default = _default;

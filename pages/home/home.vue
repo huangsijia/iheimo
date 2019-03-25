@@ -20,11 +20,12 @@
 		},
 		mounted() {},
 		onLoad() {
+			console.log(this.hasLogin)
 			if (this.hasLogin) {
-				console.log("已经登录")
+				console.log(this.$store.state)
 			} else {
 				uni.redirectTo({
-					url: "/pages/login/login?redirect=/pages/home/home"
+					url: "/pages/mobile/mobile?redirect=/pages/home/home"
 				})
 			}
 		}

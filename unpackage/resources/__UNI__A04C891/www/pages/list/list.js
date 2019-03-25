@@ -1,0 +1,13 @@
+
+      !(function(){
+        var uniAppViewReadyCallback = function(){
+          setCssToHead(["@charset \x22UTF-8\x22;\n.",[1],"btn.",[1],"data-v-58e708a0 { display: block; width: 80%; height: ",[0,86],"; line-height: ",[0,86],"; margin-top: ",[0,59],"; text-align: center; font-size: ",[0,30],"; color: #fff; border-radius: ",[0,20],"; background: #009193; margin: 0 auto; }\n.",[1],"list .",[1],"sum.",[1],"data-v-58e708a0 { padding: ",[0,30]," ",[0,24],"; background: #009193; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; color: #fff; }\n.",[1],"list .",[1],"sum .",[1],"sumPart2.",[1],"data-v-58e708a0, .",[1],"list .",[1],"sum .",[1],"sumPart3.",[1],"data-v-58e708a0 { margin-left: ",[0,80],"; }\n.",[1],"list .",[1],"sum wx-text.",[1],"data-v-58e708a0 { line-height: 1.6; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; font-size: ",[0,40],"; }\n.",[1],"list .",[1],"sum wx-text.",[1],"data-v-58e708a0:first-child { color: #cbe2e2; font-size: ",[0,30],"; }\n.",[1],"list .",[1],"today.",[1],"data-v-58e708a0 { color: #999; padding: ",[0,24],"; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-pack: justify; -webkit-justify-content: space-between; -ms-flex-pack: justify; justify-content: space-between; border-bottom: ",[0,1]," solid #EDEDED; }\n.",[1],"list .",[1],"today .",[1],"todayRight wx-text.",[1],"data-v-58e708a0 { margin-right: ",[0,20],"; }\n.",[1],"list .",[1],"li.",[1],"data-v-58e708a0 { display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; padding-left: ",[0,24],"; }\n.",[1],"list .",[1],"li .",[1],"liLeft .",[1],"liLeftBorder.",[1],"data-v-58e708a0 { width: ",[0,80],"; height: ",[0,80],"; line-height: ",[0,80],"; margin-right: ",[0,15],"; background: #f8f8f8; border-radius: 50%; text-align: center; }\n.",[1],"list .",[1],"li .",[1],"liRight.",[1],"data-v-58e708a0 { padding: ",[0,40]," ",[0,24],"; width: 100%; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-pack: justify; -webkit-justify-content: space-between; -ms-flex-pack: justify; justify-content: space-between; border-bottom: ",[0,1]," solid #EDEDED; }\n",],undefined,{path:"./pages/list/list.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/list/list.wxml') } }));
+        }
+        if(window.__uniAppViewReady__){
+          uniAppViewReadyCallback()
+        }else{
+          document.addEventListener('uniAppViewReady',uniAppViewReadyCallback)
+        }
+      })();
+      

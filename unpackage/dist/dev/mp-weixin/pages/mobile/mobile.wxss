@@ -37,80 +37,71 @@
   background: #009193;
   margin: 0 auto;
 }
+.loginMobile.data-v-ee5577d0 {
+  padding-top: 120rpx;
+}
 .loginMobile .p.data-v-ee5577d0 {
-  text-align: center;
-  display: block;
-  color: #666;
-  font-size: 32rpx;
+    text-align: center;
+    display: block;
+    color: #666;
+    font-size: 32rpx;
 }
 .loginMobile .btn.data-v-ee5577d0 {
-  margin-top: 380rpx;
+    margin-top: 380rpx;
 }
 .loginMobile .other .p.data-v-ee5577d0 {
-  position: relative;
-  color: #cfcfcf;
-  font-size: 24rpx;
-  text-align: center;
-  margin-top: 100rpx;
+    position: relative;
+    color: #cfcfcf;
+    font-size: 24rpx;
+    text-align: center;
+    margin-top: 100rpx;
 }
 .loginMobile .other .p.data-v-ee5577d0:before, .loginMobile .other .p.data-v-ee5577d0:after {
-    content: " ";
-    width: 200rpx;
-    height: 1rpx;
-    background: #cfcfcf;
-    display: block;
-    position: absolute;
-    top: 50%;
+      content: " ";
+      width: 200rpx;
+      height: 1rpx;
+      background: #cfcfcf;
+      display: block;
+      position: absolute;
+      top: 50%;
 }
 .loginMobile .other .p.data-v-ee5577d0:before {
-    left: 10%;
+      left: 10%;
 }
 .loginMobile .other .p.data-v-ee5577d0:after {
-    right: 10%;
+      right: 10%;
 }
 .loginMobile .link.data-v-ee5577d0 {
-  width: 80%;
-  margin: 24rpx auto 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  font-size: 28rpx;
+    width: 80%;
+    margin: 24rpx auto 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    font-size: 28rpx;
 }
 .loginMobile .form .section.data-v-ee5577d0 {
-  width: 80%;
-  margin: 0 auto;
-  position: relative;
-  border-bottom: 1px solid #EDEDED;
-  background-repeat: no-repeat;
-  background-position: left center;
-  background-size: 48rpx;
+    width: 80%;
+    margin: 0 auto;
+    padding: 30rpx 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border-bottom: 1px solid #EDEDED;
+}
+.loginMobile .form .section .font.data-v-ee5577d0 {
+      margin-right: 20rpx;
 }
 .loginMobile .form .section ._input.data-v-ee5577d0 {
-    position: relative;
-    z-index: 0;
-    width: 100%;
-    height: 60rpx;
-    padding-left: 68rpx;
-    font-size: 30rpx;
-    margin: 25rpx 0;
-}
-.loginMobile .form .section.data-v-ee5577d0:first-child {
-    margin-top: 156rpx;
-}
-.loginMobile .form .font.data-v-ee5577d0 {
-  position: absolute;
-}
-.loginMobile .form .eye.data-v-ee5577d0 {
-  position: absolute;
-  right: 24rpx;
-  top: 0;
-  z-index: 10;
-  width: 60rpx;
-  height: 100%;
+      width: 80%;
 }
 

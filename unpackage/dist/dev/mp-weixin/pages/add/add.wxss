@@ -41,7 +41,7 @@
   background: #f8f8f8;
 }
 .key .category.data-v-29be497e {
-    padding: 25rpx;
+    padding: 25rpx 0 25rpx 25rpx;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -69,8 +69,26 @@
 .key .category .categoryView .iconfont.data-v-29be497e {
         color: #999;
 }
-.key .category .categoryView .person.data-v-29be497e {
-        margin-right: 20rpx;
+.key .category .remark.data-v-29be497e {
+      width: 25%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+}
+.key .category .remark .iconfont.data-v-29be497e {
+        font-size: 50rpx;
+}
+.key .category .remark.on .iconfont.data-v-29be497e {
+        color: #009193;
 }
 .key .table.data-v-29be497e {
     display: -webkit-box;
@@ -99,6 +117,561 @@
 .key .table .td.finish.data-v-29be497e {
         background: #009193;
         color: #fff;
+}
+
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.lvv-popup {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 9999;
+}
+.lvv-popup .lvv-popupmark {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+}
+.lvv-popup .lvv-popupcontent {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 100;
+}
+.lvv-popup .pt {
+    -webkit-animation: showtop 0.5s;
+            animation: showtop 0.5s;
+}
+.lvv-popup .pl {
+    -webkit-animation: showleft 0.5s;
+            animation: showleft 0.5s;
+}
+.lvv-popup .pr {
+    -webkit-animation: showright 0.5s;
+            animation: showright 0.5s;
+}
+.lvv-popup .pb {
+    -webkit-animation: showbottom 0.5s;
+            animation: showbottom 0.5s;
+}
+.lvv-popup .ht {
+    -webkit-animation: hidetop 0.55s;
+            animation: hidetop 0.55s;
+}
+.lvv-popup .hl {
+    -webkit-animation: hideleft 0.55s;
+            animation: hideleft 0.55s;
+}
+.lvv-popup .hr {
+    -webkit-animation: hideright 0.55s;
+            animation: hideright 0.55s;
+}
+.lvv-popup .hb {
+    -webkit-animation: hidebottom 0.55s;
+            animation: hidebottom 0.55s;
+}
+@-webkit-keyframes showtop {
+from {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+}
+to {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+}
+@keyframes showtop {
+from {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+}
+to {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+}
+@-webkit-keyframes showleft {
+from {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+}
+to {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+}
+@keyframes showleft {
+from {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+}
+to {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+}
+@-webkit-keyframes showright {
+from {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+}
+to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+}
+}
+@keyframes showright {
+from {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+}
+to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+}
+}
+@-webkit-keyframes showbottom {
+from {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+}
+to {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+}
+@keyframes showbottom {
+from {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+}
+to {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+}
+@-webkit-keyframes hidetop {
+from {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+to {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+}
+}
+@keyframes hidetop {
+from {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+to {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+}
+}
+@-webkit-keyframes hideleft {
+from {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+to {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+}
+}
+@keyframes hideleft {
+from {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+to {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+}
+}
+@-webkit-keyframes hideright {
+from {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+}
+to {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+}
+}
+@keyframes hideright {
+from {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+}
+to {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+}
+}
+@-webkit-keyframes hidebottom {
+from {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+to {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+}
+}
+@keyframes hidebottom {
+from {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+}
+to {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+}
+}
+
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.uni-calender__body-date-week {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  border-bottom: 1px #f5f5f5 solid;
+}
+.uni-calender__body-date-week:last-child {
+    border: none;
+}
+.uni-calender__body-date-week .uni-calender__date {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    color: #000;
+    background: #fff;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 20rpx 0;
+    line-height: 1.5;
+}
+.uni-calender__body-date-week .uni-calender__date .uni-calender__lunar {
+      font-size: 20rpx;
+      color: #000;
+}
+.uni-calender__body-date-week .uni-calender__date .uni-calender__circle-box {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      width: 80rpx;
+      height: 80rpx;
+      -webkit-flex-shrink: 0;
+          -ms-flex-negative: 0;
+              flex-shrink: 0;
+      border-radius: 50%;
+      -webkit-transition: all 0.2s;
+      -o-transition: all 0.2s;
+      transition: all 0.2s;
+}
+.uni-calender__body-date-week .uni-calender__date.uni-calender__disable {
+      color: #d4d4d4;
+}
+.uni-calender__body-date-week .uni-calender__date.uni-calender__disable .uni-calender__lunar {
+        color: #d4d4d4;
+}
+.uni-calender__body-date-week .uni-calender__date.uni-calender__is-day {
+      color: #fd2e32;
+}
+.uni-calender__body-date-week .uni-calender__date.uni-calender__is-day .uni-calender__lunar {
+      color: #fd2e32;
+}
+.uni-calender__body-date-week .uni-calender__date.uni-calender__date-current {
+      color: #fff;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+}
+.uni-calender__body-date-week .uni-calender__date.uni-calender__date-current .uni-calender__circle-box {
+        background: #fd2e32;
+}
+.uni-calender__body-date-week .uni-calender__date.uni-calender__date-current .uni-calender__lunar {
+        color: #fff;
+}
+.uni-calender__body-date-week .uni-calender__date .uni-calender__data-circle {
+      position: absolute;
+      top: 10rpx;
+      right: 10rpx;
+      width: 10rpx;
+      height: 10rpx;
+      border-radius: 50%;
+      background: #ff5a5f;
+      z-index: 2;
+}
+
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+@font-face {
+  font-family: 'iconfont';
+  src: url("//at.alicdn.com/t/font_989023_qdgy7euvg4.eot?t=1545961121132");
+  /* IE9*/
+  src: url("//at.alicdn.com/t/font_989023_qdgy7euvg4.eot?t=1545961121132#iefix") format("embedded-opentype"), url("data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAPcAAsAAAAABiAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADMAAABCsP6z7U9TLzIAAAE8AAAARAAAAFY8fEf5Y21hcAAAAYAAAABLAAABcOcutbxnbHlmAAABzAAAACgAAAAoOZ2GtGhlYWQAAAH0AAAALwAAADYTtoNAaGhlYQAAAiQAAAAcAAAAJAfeA4NobXR4AAACQAAAAAgAAAAICAAAAGxvY2EAAAJIAAAABgAAAAYAFAAAbWF4cAAAAlAAAAAeAAAAIAENABJuYW1lAAACcAAAAUUAAAJtPlT+fXBvc3QAAAO4AAAAIQAAADLf6deseJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAJAMY05meiJQDMoDyrGAaQ4gZoOIAgCKIwNPAHicY2BkYWCcwMDKwMHUyXSGgYGhH0IzvmYwYuRgYGBiYGVmwAoC0lxTGByesT1jY27438AQw9zI0AAUZgTJAQDeIAvweJxjYGBgZWBgYAZiHSBmYWBgDGFgZAABP6AoI1icmYELLM7CoARWwwISf8b2/z+MBPJZwCQDIxvDKOABkzJQHjisIJiBEQA3lgmBAAABAAD/gAMAA4EABQAACQE1CQE1AQACAP6IAXgBgP4AiAF4AXiIAAB4nGNgZGBgAOLdZzma4vltvjJwszCAwA3v+QsR9P8GFgbmRiCXg4EJJAoAMzgKmgB4nGNgZGBgbvjfwBDDwgACQJKRARUwAQBHCAJrBAAAAAQAAAAAAAAAABQAAHicY2BkYGBgYmBjANEgFgMDFxAyMPwH8xkACS0BIAAAeJxlj01OwzAQhV/6B6QSqqhgh+QFYgEo/RGrblhUavdddN+mTpsqiSPHrdQDcB6OwAk4AtyAO/BIJ5s2lsffvHljTwDc4Acejt8t95E9XDI7cg0XuBeuU38QbpBfhJto41W4Rf1N2MczpsJtdGF5g9e4YvaEd2EPHXwI13CNT+E69S/hBvlbuIk7/Aq30PHqwj7mXle4jUcv9sdWL5xeqeVBxaHJIpM5v4KZXu+Sha3S6pxrW8QmU4OgX0lTnWlb3VPs10PnIhVZk6oJqzpJjMqt2erQBRvn8lGvF4kehCblWGP+tsYCjnEFhSUOjDFCGGSIyujoO1Vm9K+xQ8Jee1Y9zed0WxTU/3OFAQL0z1xTurLSeTpPgT1fG1J1dCtuy56UNJFezUkSskJe1rZUQuoBNmVXjhF6XNGJPyhnSP8ACVpuyAAAAHicY2BigAAuBuyAiZGJkZmBIyszMa8kv9SEgQEAGD0DTAAAAA==") format("woff"), url("//at.alicdn.com/t/font_989023_qdgy7euvg4.ttf?t=1545961121132") format("truetype"), url("//at.alicdn.com/t/font_989023_qdgy7euvg4.svg?t=1545961121132#iconfont") format("svg");
+  /* iOS 4.1- */
+}
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 32rpx;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-jiantou:before {
+  content: '\E606';
+}
+.header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  height: 100rpx;
+  background: #fff;
+  z-index: 10000;
+  font-size: 32rpx;
+}
+.uni-calendar__box {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.uni-calendar__wrapper {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 26rpx;
+  background: #fff;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.uni-calendar__wrapper .uni-calenda__content .uni-calendar__panel {
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    font-size: 28rpx;
+    height: 80rpx;
+}
+.uni-calendar__wrapper .uni-calenda__content .uni-calendar__panel .uni-calendar__date-befor,
+    .uni-calendar__wrapper .uni-calenda__content .uni-calendar__panel .uni-calendar__date-after {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      height: 80rpx;
+      width: 80rpx;
+      text-align: center;
+      line-height: 80rpx;
+}
+.uni-calendar__wrapper .uni-calenda__content .uni-calendar__panel .uni-calendar__date-befor.uni-calendar__rollback,
+      .uni-calendar__wrapper .uni-calenda__content .uni-calendar__panel .uni-calendar__date-after.uni-calendar__rollback {
+        -webkit-transform: rotate(180deg);
+            -ms-transform: rotate(180deg);
+                transform: rotate(180deg);
+}
+.uni-calendar__wrapper .uni-calenda__content .uni-calendar__panel .uni-calendar__panel-box {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      width: 200rpx;
+}
+.uni-calendar__wrapper .uni-calenda__content .uni-calendar__panel .uni-calendar__backtoday {
+      position: absolute;
+      right: 0;
+      top: 15rpx;
+      padding: 0 10rpx;
+      padding-left: 20rpx;
+      height: 50rpx;
+      line-height: 50rpx;
+      border: 1px rgba(253, 46, 50, 0.5) solid;
+      border-right: none;
+      font-size: 24rpx;
+      border-top-left-radius: 50rpx;
+      border-bottom-left-radius: 50rpx;
+      color: rgba(253, 46, 50, 0.7);
+      background: rgba(241, 233, 233, 0.4);
+}
+.uni-calendar__wrapper .uni-calenda__content .uni-calendar__day-detail {
+    padding: 20rpx;
+    padding-left: 30rpx;
+    border-top: 1px #f5f5f5 solid;
+}
+.uni-calendar__wrapper .uni-calenda__content .uni-calendar__header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 28rpx;
+    border-top: 1px #f5f5f5 solid;
+}
+.uni-calendar__wrapper .uni-calenda__content .uni-calendar__header .uni-calendar__week {
+      width: 100%;
+      text-align: center;
+      line-height: 80rpx;
+      color: #333;
+      font-weight: bold;
+}
+.uni-calendar__wrapper .uni-calenda__content .uni-calendar__body {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    font-size: 28rpx;
+    min-height: 800rpx;
 }
 
 @charset "UTF-8";
@@ -166,7 +739,7 @@
       border: 1px solid #009193;
       color: #009193;
       text-align: center;
-      margin: 10rpx 0 40rpx;
+      margin: 10rpx 0 20rpx;
 }
 .add .tab .tab_nav view.on.data-v-7cdc025c {
         background: #009193;
@@ -189,11 +762,11 @@
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 260rpx;
+  margin-top: 230rpx;
 }
 .add .list .li.data-v-7cdc025c {
     text-align: center;
-    margin-bottom: 40rpx;
+    margin-bottom: 30rpx;
 }
 .add .list .li.on .img.data-v-7cdc025c {
       background: #009193;
@@ -256,5 +829,92 @@
   width: 100%;
   position: fixed;
   bottom: 0;
+}
+.add .payList .text.data-v-7cdc025c {
+  height: 100rpx;
+  line-height: 100rpx;
+  border-bottom: 1rpx solid #EDEDED;
+  display: block;
+  text-align: center;
+  font-size: 34rpx;
+}
+.add .payList .payRow.data-v-7cdc025c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 28rpx;
+}
+.add .payList .payRow:nth-child(2) .iconfontLeft.data-v-7cdc025c {
+    color: #56abe4;
+}
+.add .payList .payRow:nth-child(3) .iconfontLeft.data-v-7cdc025c {
+    color: #3eb135;
+}
+.add .payList .payRow:nth-child(4) .iconfontLeft.data-v-7cdc025c {
+    color: #1296db;
+}
+.add .payList .payRow:nth-child(5) .iconfontLeft.data-v-7cdc025c {
+    color: #ffbb00;
+}
+.add .payList .payRow:nth-child(6) .iconfontLeft.data-v-7cdc025c {
+    color: #58bfbc;
+}
+.add .payList .payRow.on .payLi .icon.data-v-7cdc025c {
+    display: block;
+}
+.add .payList .payRow .iconfontLeft.data-v-7cdc025c {
+    padding: 0 24rpx;
+    font-size: 44rpx;
+    color: #009193;
+}
+.add .payList .payRow .payLi.data-v-7cdc025c {
+    width: 100%;
+    padding-right: 24rpx;
+    border-bottom: 1rpx solid #EDEDED;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+}
+.add .payList .payRow .payLi .iconfont.data-v-7cdc025c {
+      color: #009193;
+      display: none;
+}
+.add .lvvpopref.data-v-7cdc025c {
+  width: 750rpx;
+  background: #FFFFFF;
+  position: absolute;
+  bottom: 0;
+  font-size: 30rpx;
+}
+.add .lvvpopref.paymentLvvpopref.data-v-7cdc025c {
+    height: 600rpx;
+}
+.add .lvvpopref.remarkLvvpopref.data-v-7cdc025c {
+    height: 120rpx;
+    padding: 24rpx;
+    color: #999;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    line-height: 1.6;
+}
+.add .lvvpopref.remarkLvvpopref ._textarea.data-v-7cdc025c {
+      color: #333;
+}
+.add .lvvpopref.calendarLvvpopref.data-v-7cdc025c {
+    height: 80%;
 }
 

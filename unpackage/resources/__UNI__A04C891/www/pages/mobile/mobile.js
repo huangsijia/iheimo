@@ -1,0 +1,13 @@
+
+      !(function(){
+        var uniAppViewReadyCallback = function(){
+          setCssToHead(["@charset \x22UTF-8\x22;\n.",[1],"btn.",[1],"data-v-7dfa1643 { display: block; width: 80%; height: ",[0,86],"; line-height: ",[0,86],"; margin-top: ",[0,59],"; text-align: center; font-size: ",[0,30],"; color: #fff; border-radius: ",[0,20],"; background: #009193; margin: 0 auto; }\n.",[1],"loginMobile.",[1],"data-v-7dfa1643 { padding-top: ",[0,120],"; }\n.",[1],"loginMobile .",[1],"p.",[1],"data-v-7dfa1643 { text-align: center; display: block; color: #666; font-size: ",[0,32],"; }\n.",[1],"loginMobile .",[1],"btn.",[1],"data-v-7dfa1643 { margin-top: ",[0,380],"; }\n.",[1],"loginMobile .",[1],"other .",[1],"p.",[1],"data-v-7dfa1643 { position: relative; color: #cfcfcf; font-size: ",[0,24],"; text-align: center; margin-top: ",[0,100],"; }\n.",[1],"loginMobile .",[1],"other .",[1],"p.",[1],"data-v-7dfa1643:before, .",[1],"loginMobile .",[1],"other .",[1],"p.",[1],"data-v-7dfa1643:after { content: \x22 \x22; width: ",[0,200],"; height: ",[0,1],"; background: #cfcfcf; display: block; position: absolute; top: 50%; }\n.",[1],"loginMobile .",[1],"other .",[1],"p.",[1],"data-v-7dfa1643:before { left: 10%; }\n.",[1],"loginMobile .",[1],"other .",[1],"p.",[1],"data-v-7dfa1643:after { right: 10%; }\n.",[1],"loginMobile .",[1],"link.",[1],"data-v-7dfa1643 { width: 80%; margin: ",[0,24]," auto 0; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-pack: justify; -webkit-justify-content: space-between; -ms-flex-pack: justify; justify-content: space-between; font-size: ",[0,28],"; }\n.",[1],"loginMobile .",[1],"form .",[1],"section.",[1],"data-v-7dfa1643 { width: 80%; margin: 0 auto; padding: ",[0,30]," 0; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; border-bottom: 1px solid #EDEDED; }\n.",[1],"loginMobile .",[1],"form .",[1],"section .",[1],"font.",[1],"data-v-7dfa1643 { margin-right: ",[0,20],"; }\n.",[1],"loginMobile .",[1],"form .",[1],"section .",[1],"_input.",[1],"data-v-7dfa1643 { width: 80%; }\n",],undefined,{path:"./pages/mobile/mobile.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/mobile/mobile.wxml') } }));
+        }
+        if(window.__uniAppViewReady__){
+          uniAppViewReadyCallback()
+        }else{
+          document.addEventListener('uniAppViewReady',uniAppViewReadyCallback)
+        }
+      })();
+      

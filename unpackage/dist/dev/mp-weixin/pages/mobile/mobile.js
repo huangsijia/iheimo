@@ -46,7 +46,6 @@
 
 
 
-
 var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 
 
@@ -55,27 +54,28 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
     return {
       // 表单数据
       info: {
-        mobile: "", // 手机号码
-        password: "" // 密码
+        msg: "hmc_cici@hotmail.com", // 手机号码
+        password: "_hlj12345_" // 密码
       },
-      isOpen: false // 密码眼睛是不是开着
-    };
+      isOpen: false, // 密码眼睛是不是开着
+      redirect: "" };
+
   },
   methods: _objectSpread({},
   (0, _vuex.mapMutations)(['login']), {
     // 检验输入的数据
     chechInfo: function chechInfo() {
-      if (!this.$config.reg.mobileReg.test(this.info.mobile)) {
+      if (!this.$public.reg.mailReg.test(this.info.msg)) {
         uni.showToast({
           icon: "none",
-          title: '请输入正确的手机号码',
+          title: '请输入正确的邮箱地址',
           duration: 2000 });
 
 
         return false;
       }
 
-      if (!this.$config.reg.passwordReg.test(this.info.password)) {
+      if (!this.$public.reg.passwordReg.test(this.info.password)) {
         uni.showToast({
           icon: "none",
           title: '请输入6-20位密码',
@@ -87,31 +87,46 @@ var _vuex = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.j
       return true;
     },
     // 登录
-    login: function login() {var _this = this;
+    loginFun: function loginFun() {var _this = this;
       if (!this.chechInfo()) {
         return false;
       }
-
       this.$public.API_GET({
-        url: "loginWithPwd",
+        url: "login",
+        type: "POST",
         data: {
-          mobile: this.info.mobile,
-          pwd: this.info.password },
+          userName: this.info.msg,
+          password: this.info.password },
 
         success: function success(res) {
-          console.log(res);
-          if (!res.success) {
+          if (!res.data.success) {
             uni.showToast({
               icon: 'none',
-              title: res.data.msg });
+              title: res.data.message });
 
             return false;
           }
+          _this.login(res.data);
+          uni.setStorageSync("persion", res.data);
+          if (_this.redirect) {
+            uni.reLaunch({
+              url: _this.redirect });
 
-          _this.login(res.data.data);
+          } else {
+            uni.reLaunch({
+              url: '/pages/index/index' });
+
+          }
         } });
 
-    } }) };exports.default = _default;
+    } }),
+
+  onLoad: function onLoad(e) {
+    this.redirect = e.redirect;
+  },
+  mounted: function mounted() {
+
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
@@ -148,33 +163,32 @@ var render = function() {
       { staticClass: "loginMobile" },
       [
         _c("form", { staticClass: "form" }, [
-          _c("view", { staticClass: "section mobile" }, [
+          _c("view", { staticClass: "section msg" }, [
             _c("text", { staticClass: "iconfont font" }, [_vm._v("")]),
             _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.info.mobile,
-                  expression: "info.mobile"
+                  value: _vm.info.msg,
+                  expression: "info.msg"
                 }
               ],
               attrs: {
                 focus: "",
                 type: "number",
-                maxlength: "11",
-                placeholder: "请输入11位手机号码",
+                placeholder: "请输入邮箱地址",
                 "placeholder-class": "placeholder",
                 value: "",
                 eventid: "6588ef41-0"
               },
-              domProps: { value: _vm.info.mobile },
+              domProps: { value: _vm.info.msg },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.info.mobile = $event.target.value
+                  _vm.info.msg = $event.target.value
                 }
               }
             })
@@ -229,7 +243,15 @@ var render = function() {
             )
           ])
         ]),
-        _c("view", { staticClass: "btn" }, [_vm._v("登录")]),
+        _c(
+          "view",
+          {
+            staticClass: "btn",
+            attrs: { eventid: "6588ef41-3" },
+            on: { click: _vm.loginFun }
+          },
+          [_vm._v("登录")]
+        ),
         _c(
           "view",
           { staticClass: "link" },

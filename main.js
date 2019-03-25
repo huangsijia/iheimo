@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import App from './App'
 import store from "./store/index";
-import './font/iconfont.css'
+import Public from './common/public.js'
 
-Vue.prototype.$store = store
+
+import './font/iconfont.css'
+import './common/filter'
+
+Vue.prototype.$store = store;
+Vue.prototype.$public = Public
 
 Vue.config.productionTip = false
 

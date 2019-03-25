@@ -22,11 +22,29 @@
 </template>
 
 <script>
+	import {
+		mapState,
+		mapMutations
+	} from 'vuex';
 	export default {
+		computed: {
+			...mapState(['hasLogin'])
+		},
 		data() {
 			return {
 
 			};
+		},
+		methods:{
+			// ...mapMutations(['logout']),
+		},
+		mounted() {
+			uni.login({
+				provider: 'weixin',
+				success: function(loginRes) {
+					console.log(loginRes.authResult);
+				}
+			})
 		}
 	}
 </script>
