@@ -9,8 +9,13 @@
 					{{payMentTxt}}
 				</view>
 			</view>
-			<view :class="['remark',{'on':remarkTxt}]"  @click="remarkFun()">
-				<text class="iconfont">&#xe615;</text>
+			<view class="categoryView">
+				<view :class="['remark',{'on':remarkTxt}]"  @click="remarkFun()">
+					<text class="iconfont">&#xe615;</text>
+				</view>
+				<view :class="['address',{'on':addressTxt}]"  @click="addressFun()">
+					<text class="iconfont">&#xe62b;</text>
+				</view>
 			</view>
 		</view>
 		<view class="table">
@@ -24,7 +29,7 @@
 <script>
 	import { mapState } from 'vuex'
 	export default {
-		props:['payMentTxt','remarkTxt','date'],
+		props:['payMentTxt','remarkTxt','date','addressTxt'],
 		computed:{...mapState(['keyList']),},
 		data() {
 			return {
@@ -44,6 +49,9 @@
 			calendarFun(){
 				this.$emit("calendarEmit");
 			},
+			addressFun(){
+				this.$emit("addressEmit");
+			}
 		}
 	}
 </script>
@@ -71,13 +79,13 @@
 				color:$ft-999;
 			}
 		}
-		.remark{
-			width: 25%;
+		.remark,.address{
+			margin-right: 20upx;
 			display: flex;
 			align-items: center;
 			justify-content:center;
 			.iconfont{
-				font-size: 50upx;
+				font-size: 44upx;
 			}
 			&.on{
 				.iconfont{

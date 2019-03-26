@@ -4,8 +4,8 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
 	state: {
-		// token: "",
-		token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0cmFjeSIsImp0aSI6Ijk0ZWVkYjM4LTQyNjItNGQ2ZC1hYTcxLThlODJiNmEzY2IxYiIsImlhdCI6MTU1MzU2OTc0NywibmJmIjoxNTUzNTY5NzQ3LCJleHAiOjE1NTM1NzMzNDcsImlzcyI6ImhlaW1vIiwiYXVkIjoiaGVpbW8ifQ.C4FOBljYsnqbfFm9NaETtK2OeCD9niIsDhd4kdYBNkE",
+		token: "",
+		// token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0cmFjeSIsImp0aSI6Ijk0ZWVkYjM4LTQyNjItNGQ2ZC1hYTcxLThlODJiNmEzY2IxYiIsImlhdCI6MTU1MzU2OTc0NywibmJmIjoxNTUzNTY5NzQ3LCJleHAiOjE1NTM1NzMzNDcsImlzcyI6ImhlaW1vIiwiYXVkIjoiaGVpbW8ifQ.C4FOBljYsnqbfFm9NaETtK2OeCD9niIsDhd4kdYBNkE",
 		userInfo: {},
 		hasLogin: false,
 		// 支出分类

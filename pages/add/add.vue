@@ -15,9 +15,9 @@
 				<view class="result">
 					<view class="resultLeft">
 						<view class="img">
-							<text class="iconfont">{{record.img}}</text>
+							<text class="iconfont">{{record.icon}}</text>
 						</view>
-						<text>{{record.msg}}</text>
+						<text>{{record.name}}</text>
 					</view>
 					<text>{{amount}}</text>
 				</view>
@@ -26,15 +26,16 @@
 
 		</view>
 		<view class="list">
-			<view :class="[{'on':itemIndex == $index},'li']" v-for="(item,$index) in listShow" :key="$index" @click="selectList(item,$index)">
+			<view :id="item.id" :code="item.code" :class="[{'on':itemIndex == $index},'li']" v-for="(item,$index) in list" :key="$index"
+			 @click="selectList(item,$index)" v-if="item.icon">
 				<view class="img">
-					<text class="iconfont">{{item.img}}</text>
+					<text class="iconfont">{{item.icon}}</text>
 				</view>
-				<p>{{item.msg}}</p>
+				<p>{{item.name}}</p>
 			</view>
 		</view>
 		<view class="key" v-if="showKey">
-			<key @amountEmit="calculate" @paymentEmit="payment" @remarkEmit="remark" @calendarEmit="calendarFun"></key>
+			<key @amountEmit="calculate" @paymentEmit="payment" @remarkEmit="remark" @calendarEmit="calendarFun" @addressEmit="addressFun"></key>
 		</view>
 		<lvv-popup position="bottom" ref="calendarLvvpopref">
 			<view class="lvvpopref calendarLvvpopref">
@@ -45,7 +46,8 @@
 			<view class="lvvpopref paymentLvvpopref">
 				<view class="payList">
 					<text class="text">选择账户</text>
-					<view :class="[{'on':payIndex == $index},'payRow']" v-for="(item,$index) in payList" :key="item" @click="selectPay(item,$index)">
+					<view :class="[{'on':payIndex == $index},'payRow']" v-for="(item,$index) in payList" :key="item" @click="selectPay(item,$index)"
+					 :code="item.code">
 						<text :class="['iconfont','iconfontLeft']">{{item.img}}</text>
 						<view class='payLi'>
 							<text class="msg">{{item.msg}}</text>
@@ -61,6 +63,11 @@
 				备注：<textarea v-model="remarkTxt" :focus="remarkFocus" />
 				</view>
 		</lvv-popup>
+		<lvv-popup position="bottom" ref="addressLvvpopref">
+			<view class="lvvpopref addressLvvpopref">
+				地址：<textarea v-model="addressTxt" :focus="addressFocus" />
+				</view>
+		</lvv-popup>
 	</view>
 </template>
 
@@ -70,12 +77,6 @@
 	import calendar from '../../components/uni-calendar/uni-calendar'
 	export default {
 		computed: {
-			list0() {
-				return this.$store.state.expenses;
-			},
-			list1() {
-				return this.$store.state.income;
-			},
 			payList() {
 				return this.$store.state.payList;
 			}
@@ -91,7 +92,7 @@
 				tabIndex: 0,
 				listTab: ["支出", "收入"],
 				itemIndex: 0,
-				listShow: {},
+				list: [],
 				showKey: true,
 				record: "",
 				formula: "",
@@ -100,9 +101,12 @@
 				amount: 0,
 				first: "",
 				payMentTxt:"支付宝",
+				paymentMethodCode:"alipay",
 				remarkTxt:"",
 				remarkFocus:false,
-				date:"2019-03-22"
+				date:"2019-03-22",
+				addressFocus:false,
+				addressTxt:""
 			};
 		},
 		methods: {
@@ -203,22 +207,37 @@
 				this.$refs.remarkLvvpopref.show();
 				this.remarkFocus = true;
 			},
+			//地址
+			addressFun(){
+				this.$refs.addressLvvpopref.show();
+				this.addressFocus = true;
+			},
 			submitFun(){
+				var sendData = {
+					name:this.record.name,
+					consumptionTypeCode:this.record.code,
+					paymentMethodCode:this.paymentMethodCode,
+					description:this.remarkTxt,
+					location:this.addressTxt,
+					amount:this.amount,
+					date:this.date
+				}
 				this.$public.API_GET({
 					url:"add",
 					type:"POST",
-					data:{
-						  name: "string",
-						  consumptionTypeCode: "string",
-						  paymentMethodCode: "string",
-						  description: "string",
-						  location: "string",
-						  amount: 0,
-						  date: "2019-03-25T07:41:52.235Z",
-						  note: "string"
-						},
+					data:sendData,
 					success:res=>{
-						console.log(res)
+						if (!res.data.success) {
+							uni.showToast({
+								icon: 'none',
+								title: res.data.msg,
+								duration: 2000
+							});
+							return false;
+						}
+						uni.navigateTo({
+							url: "/pages/list/list"
+						})
 					}
 				})
 			},
@@ -231,22 +250,26 @@
 			//切换tab
 			selectTab(index) {
 				this.tabIndex = index;
-				this.listShow = this["list" + index];
-				if(index){
-					this.record = this.list1[this.itemIndex];
-				}else{
-					this.record = this.list0[this.itemIndex];
-				}
 			},
 			//li切换class
 			selectList(item, index) {
 				this.itemIndex = index;
 				this.record = item;
 			},
+			//分类列表
+			listFun(){				
+				this.$public.API_GET({
+					url:"list",
+					type:"GET",
+					success:res=>{
+						this.list = res.data;
+						this.record = this.list[0];
+					}
+				})
+			}
 		},
 		mounted() {
-			this.listShow = this.list0;
-			this.record = this.list0[0];
+			this.listFun();
 		}
 	}
 </script>
@@ -295,7 +318,6 @@
 		.list {
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: center;
 			margin-top: 230upx;
 
 			.li {
@@ -439,7 +461,7 @@
 			&.paymentLvvpopref{				
 				height:600upx;
 			}
-			&.remarkLvvpopref{				
+			&.remarkLvvpopref,&.addressLvvpopref{				
 				height:120upx;
 				padding:24upx;
 				color: $ft-999;

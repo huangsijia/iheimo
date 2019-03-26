@@ -44,8 +44,8 @@
 			return {
 				// 表单数据
 				info: {
-					msg: "hmc_cici@hotmail.com", // 手机号码
-					password: "_hlj12345_" // 密码
+					msg: "", // 手机号码
+					password: "" // 密码
 				},
 				isOpen: false ,// 密码眼睛是不是开着
 				redirect:""
