@@ -27,6 +27,14 @@ export default{
 			},
 			data: JSON.stringify(data),
 			success: function(response, textStatus, request) {
+				if(response.statusCode==401){
+					var pages = getCurrentPages();
+					var page = pages[pages.length - 1];
+					uni.reLaunch({
+						url: '/pages/mobile/mobile?redirect=/' + page.route
+					})
+					return false;
+                    }
 				config['success'](response, request);
 				
 				// console.log(METHOD)

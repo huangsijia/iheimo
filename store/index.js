@@ -4,7 +4,8 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
 	state: {
-		token: "",
+		// token: "",
+		token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0cmFjeSIsImp0aSI6Ijk0ZWVkYjM4LTQyNjItNGQ2ZC1hYTcxLThlODJiNmEzY2IxYiIsImlhdCI6MTU1MzU2OTc0NywibmJmIjoxNTUzNTY5NzQ3LCJleHAiOjE1NTM1NzMzNDcsImlzcyI6ImhlaW1vIiwiYXVkIjoiaGVpbW8ifQ.C4FOBljYsnqbfFm9NaETtK2OeCD9niIsDhd4kdYBNkE",
 		userInfo: {},
 		hasLogin: false,
 		// 支出分类
@@ -29,11 +30,11 @@ export const store = new Vuex.Store({
 		],
 		keyList:['1','2','3','\ue6ac','4','5','6','+','7','8','9','-','C','0','.','完成'],
 		payList:[
-			{"img":"\ue6c5","msg":'支付宝'},
-			{"img":"\ue6ff","msg":'微信'},
-			{"img":"\ue605","msg":'银行卡'},
-			{"img":"\ue6b9","msg":'现金'},
-			{"img":"\ue643","msg":'转账'},
+			{"img":"\ue6c5","msg":'支付宝',"code":"Alipay"},
+			{"img":"\ue6ff","msg":'微信',"code":"WePay"},
+			{"img":"\ue608","msg":'银行卡',"code":"BankCard"},
+			{"img":"\ue6b9","msg":'现金',"code":"Cash"},
+			{"img":"\ue605","msg":'信用卡',"code":"CreditCard"},
 		]
 	},
 	getters:{
