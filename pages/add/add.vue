@@ -106,6 +106,78 @@
 			};
 		},
 		methods: {
+			//计算
+			calculate(data) {
+				// 不允许直接输入+-.0C完成
+				if(this.amount == "0"){
+					if(data.index == "3" || data.index == "7" || data.index == "11" || data.index == "12" || data.index == "13"  || data.index == "14"){
+						return;
+					}
+				}
+				// 点击C
+				if(data.index == "12"){
+					this.amountStr = "";
+					this.formula = " ";
+					this.amountArr = [];
+					this.amount = 0;
+					return;
+				}
+				// 点击删除
+				if (data.index == "3") {
+					var deleteArr = []
+					var oldArr = this.amountStr.split("");
+					deleteArr = oldArr.pop();
+					this.amountStr = oldArr.join("");
+					if(this.amountStr.substr(-1,1).includes("+")||this.amountStr.substr(-1,1).includes("-")){
+						this.formula = " "
+					}
+				}else{
+					//不能连续输入+-.
+					if((data.index == "7" && this.amountStr.substr(-1,1).includes("+")) || data.index == "11" && this.amountStr.substr(-1,1).includes("-") || data.index == "14" && this.amountStr.substr(-1,1).includes(".")){
+						return;
+					}else{
+						this.amountStr += data.item;
+					}
+				}
+				
+				var result = 0;
+				var reg = new RegExp("(\\+|\\-|\\*|\\/)");
+				this.amountArr = this.amountStr.split(reg);
+				
+				//点击完成
+				if(data.index == "15"){
+					this.submitFun();
+					return;
+				}
+				//俩位小数
+				if (this.amountStr.includes(".")) {
+					var numIndexOf = this.amountStr.indexOf(".");
+					if (numIndexOf != -1) {
+						var numSub = this.amountStr.substring(numIndexOf + 1, this.amountStr.length)
+						if (numSub.length > 2) {
+							this.amountStr = this.amountStr.substring(0, numIndexOf + 3);
+						}
+					}
+					this.amount = this.amountStr;
+					return;
+				}
+				//加减计算
+				if(this.amountStr.includes("+") || this.amountStr.includes("-")){
+					this.formula = this.amountStr;
+					for (var i = 0; i < this.amountArr.length; i++) {
+						var item = this.amountArr[i];
+						if (item == '+' || item == '-') {
+							var nextNum = i + 1 >= this.amountArr.length ? 0 : Number(this.amountArr[i + 1]);
+							result = item == '+' ? result + nextNum : result - nextNum;
+						} else if (i == 0) {
+							result += Number(item);
+						}
+						this.amount = result;
+					}
+				}else{
+					this.amount = this.amountStr?this.amountStr:0;
+				}
+			},
 			//日历
 			calendarFun(){
 				this.$refs.calendarLvvpopref.show();
@@ -130,84 +202,6 @@
 			remark(){
 				this.$refs.remarkLvvpopref.show();
 				this.remarkFocus = true;
-			},
-			//计算
-			calculate(data) {
-				if(data.index == 15){
-					this.submitFun();
-					return;
-				}
-				//点击删除
-				if (data.index == 3) {
-					var deleteArr = []
-					var oldArr = this.amountStr.split("");
-					deleteArr = oldArr.pop();
-					this.amountStr = oldArr.join("") ? oldArr.join("") : "0";
-				} else {
-					if(data.index == 7 || data.index == 11){
-						if(this.amountStr.substr(-1,1).includes("+") || this.amountStr.substr(-1,1).includes("-")){
-							return;
-						}else{
-							this.amountStr += data.item;
-						}
-					}else{
-						this.amountStr += data.item;
-					}					
-				}
-				//俩位小数
-				if (this.amountStr.includes(".")) {
-					var numIndexOf = this.amountStr.indexOf(".");
-					if (numIndexOf != -1) {
-						var numSub = this.amountStr.substring(numIndexOf + 1, this.amountStr.length)
-						if (numSub.length > 2) {
-							this.amountStr = this.amountStr.substring(0, numIndexOf + 3);
-						}else{
-							this.amountStr = 0;
-						}
-					}
-					this.amount = this.amountStr;
-					return;
-				}
-				var result = 0;
-				//开始输入+，-，.,0,返回0
-				this.first = this.amountStr.split("").slice(0, 1);
-				if (this.first.includes("+") || this.first.includes("-") || this.first.includes(".") || this.first.includes("0")) {
-					this.amountStr = "";
-					this.formula = " ";
-					this.amountArr = [];
-					this.amount = 0;
-					return;
-				};
-				//放入数组
-				var reg = new RegExp("(\\+|\\-|\\*|\\/)");
-				this.amountArr = this.amountStr.split(reg);
-				if (this.amountStr.includes("C")) {
-					this.amountStr = "";
-					this.formula = " ";
-					this.amountArr = [];
-					this.amount = 0;
-					return;
-				}
-
-				// 计算
-				if ((this.amountStr.includes("+") || this.amountStr.includes("-"))) {
-					if (!this.first.includes("+") && !this.first.includes("-")) {
-						this.formula = this.amountStr;
-					}
-
-					for (var i = 0; i < this.amountArr.length; i++) {
-						var item = this.amountArr[i];
-						if (item == '+' || item == '-') {
-							var nextNum = i + 1 >= this.amountArr.length ? 0 : Number(this.amountArr[i + 1]);
-							result = item == '+' ? result + nextNum : result - nextNum;
-						} else if (i == 0) {
-							result += Number(item);
-						}
-						this.amount = result;
-					}
-				} else {
-					this.amount = this.amountStr;
-				}
 			},
 			submitFun(){
 				this.$public.API_GET({
