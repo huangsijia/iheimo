@@ -27,7 +27,7 @@
 		</view>
 		<view class="list">
 			<view :id="item.id" :code="item.code" :class="[{'on':itemIndex == $index},'li']" v-for="(item,$index) in list" :key="$index"
-			 @click="selectList(item,$index)" v-if="item.icon">
+			 @click="selectList(item,$index)" @touchstart="showKeyFun">
 				<view class="img">
 					<text class="iconfont">{{item.icon}}</text>
 				</view>
@@ -115,6 +115,7 @@
 				// 不允许直接输入+-.0C完成
 				if(this.amount == "0"){
 					if(data.index == "3" || data.index == "7" || data.index == "11" || data.index == "12" || data.index == "13"  || data.index == "14"){
+						this.formula = " ";
 						return;
 					}
 				}
@@ -132,9 +133,6 @@
 					var oldArr = this.amountStr.split("");
 					deleteArr = oldArr.pop();
 					this.amountStr = oldArr.join("");
-					if(this.amountStr.substr(-1,1).includes("+")||this.amountStr.substr(-1,1).includes("-")){
-						this.formula = " "
-					}
 				}else{
 					//不能连续输入+-.
 					if((data.index == "7" && this.amountStr.substr(-1,1).includes("+")) || data.index == "11" && this.amountStr.substr(-1,1).includes("-") || data.index == "14" && this.amountStr.substr(-1,1).includes(".")){
@@ -222,8 +220,12 @@
 					amount:this.amount,
 					date:this.date
 				}
+				var link = "add"
+				if(this.tabIndex){
+					link ="InCome"
+				}
 				this.$public.API_GET({
-					url:"add",
+					url:link,
 					type:"POST",
 					data:sendData,
 					success:res=>{
@@ -250,16 +252,37 @@
 			//切换tab
 			selectTab(index) {
 				this.tabIndex = index;
+				if(index){
+					this.getInCometypeFun();
+				}else{
+					this.listFun();
+				}
 			},
 			//li切换class
 			selectList(item, index) {
 				this.itemIndex = index;
 				this.record = item;
+				this.showKey = true;
+			},
+			showKeyFun(){				
+				this.showKey = false;
 			},
 			//分类列表
-			listFun(){				
+			listFun(){
 				this.$public.API_GET({
 					url:"list",
+					type:"GET",
+					success:res=>{
+						this.list = res.data;
+						console.log(res.data)
+						this.record = this.list[0];
+					}
+				})
+				
+			},
+			getInCometypeFun(){
+				this.$public.API_GET({
+					url:"getInCometype",
 					type:"GET",
 					success:res=>{
 						this.list = res.data;

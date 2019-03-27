@@ -4,11 +4,11 @@
 			<form class="form">
 				<view class="section msg">
 					<text class="iconfont font">&#xe60c;</text>
-					<input focus v-model="info.msg" type="number" placeholder="请输入邮箱地址" placeholder-class="placeholder" value="" />
+					<input v-model="info.msg" type="text" placeholder="请输入邮箱地址" placeholder-class="placeholder" value="" />
 				</view>
 				<view class="section password">
 					<text class="iconfont font">&#xe769;</text>
-					<input focus v-model="info.password" :password="isOpen?false:true" type="text" maxlength="20" placeholder="请输入6-20位密码"
+					<input v-model="info.password" :password="isOpen?false:true" type="text" maxlength="20" placeholder="请输入6-20位密码"
 					 placeholder-class="placeholder" value="" />
 					<view class="eye" @click="isOpen=!isOpen">
 						<text class="iconfont" v-if="isOpen">&#xe681;</text>

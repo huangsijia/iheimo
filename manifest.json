@@ -9,7 +9,7 @@
         /* 5+App特有相关 */
         "splashscreen" : {
             "autoclose" : true,
-            "waiting" : true
+            "waiting" : false
         },
         "modules" : {},
         /* 模块配置 */
@@ -44,7 +44,51 @@
             },
             "ios" : {},
             /* ios打包配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {},
+            "splashscreen" : {
+                "ios" : {
+                    "iphone" : {
+                        "retina35" : ""
+                    }
+                },
+                "android" : {
+                    "hdpi" : ""
+                }
+            },
+            "icons" : {
+                "android" : {
+                    "xxxhdpi" : "static/android/192.png",
+                    "mdpi" : "static/android/48.png",
+                    "ldpi" : "static/android/48.png",
+                    "hdpi" : "static/android/72.png",
+                    "xhdpi" : "static/android/96.png",
+                    "xxhdpi" : "static/android/144.png"
+                },
+                "ios" : {
+                    "iphone" : {
+                        "app@3x" : "static/ios/180.png",
+                        "app@2x" : "static/ios/120.png",
+                        "spotlight@2x" : "static/ios/80.png",
+                        "spotlight@3x" : "static/ios/120.png",
+                        "settings@2x" : "static/ios/58.png",
+                        "settings@3x" : "static/ios/87.png",
+                        "notification@2x" : "static/ios/40.png",
+                        "notification@3x" : "static/ios/60.png"
+                    },
+                    "appstore" : "static/logo.png",
+                    "ipad" : {
+                        "app" : "static/ipad/76.png",
+                        "app@2x" : "static/ipad/152.png",
+                        "proapp@2x" : "static/ipad/167.png",
+                        "spotlight" : "static/ipad/40.png",
+                        "spotlight@2x" : "static/ipad/80.png",
+                        "settings" : "static/ipad/29.png",
+                        "settings@2x" : "static/ipad/58.png",
+                        "notification" : "static/ipad/20.png",
+                        "notification@2x" : "static/ipad/40.png"
+                    }
+                }
+            }
         }
     },
     /* SDK配置 */

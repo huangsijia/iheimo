@@ -57,13 +57,6 @@
 		},
 		methods:{
 			listFun(){
-				this.$public.API_GET({
-					url:"list",
-					type:"GET",
-					success:res=>{
-						console.log(res)
-					}
-				})
 			}
 		},
 		mounted() {
