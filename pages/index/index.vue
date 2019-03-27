@@ -7,6 +7,7 @@
 </template>
 
 <script>
+	import {mapState,mapMutations} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -17,7 +18,15 @@
 
 		},
 		computed: {},
-		methods: {}
+		methods: {
+			...mapMutations(['login']),
+		},
+		mounted(){
+			var persion = uni.getStorageSync("persion");
+			if(persion){
+				this.login(persion);
+			}
+		}		
 	}
 </script>
 
