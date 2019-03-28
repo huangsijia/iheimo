@@ -15,9 +15,9 @@
 				<view class="result">
 					<view class="resultLeft">
 						<view class="img">
-							<text class="iconfont">{{record.icon}}</text>
+							<text class="iconfont">{{record && record.icon}}</text>
 						</view>
-						<text>{{record.name}}</text>
+						<text>{{record && record.name}}</text>
 					</view>
 					<text>{{amount}}</text>
 				</view>
@@ -29,9 +29,9 @@
 			<view :id="item.id" :code="item.code" :class="[{'on':itemIndex == $index},'li']" v-for="(item,$index) in list" :key="$index"
 			 @click="selectList(item,$index)" @touchstart="showKeyFun">
 				<view class="img">
-					<text class="iconfont">{{item.icon}}</text>
+					<text class="iconfont">{{item&&item.icon}}</text>
 				</view>
-				<p>{{item.name}}</p>
+				<p>{{item&&item.name}}</p>
 			</view>
 		</view>
 		<view class="key" v-if="showKey">
@@ -47,10 +47,10 @@
 				<view class="payList">
 					<text class="text">选择账户</text>
 					<view :class="[{'on':payIndex == $index},'payRow']" v-for="(item,$index) in payList" :key="item" @click="selectPay(item,$index)"
-					 :code="item.code">
-						<text :class="['iconfont','iconfontLeft']">{{item.img}}</text>
+					 :code="item&&item.code">
+						<text :class="['iconfont','iconfontLeft']">{{item&&item.img}}</text>
 						<view class='payLi'>
-							<text class="msg">{{item.msg}}</text>
+							<text class="msg">{{item&&item.msg}}</text>
 							<text class='iconfont icon'>&#xe658;</text>
 						</view>
 
@@ -101,10 +101,10 @@
 				amount: 0,
 				first: "",
 				payMentTxt:"支付宝",
-				paymentMethodCode:"alipay",
+				paymentMethodCode:"Alipay",
 				remarkTxt:"",
 				remarkFocus:false,
-				date:"2019-03-22",
+				date:new Date(),
 				addressFocus:false,
 				addressTxt:""
 			};
@@ -112,10 +112,22 @@
 		methods: {
 			//计算
 			calculate(data) {
+				if(this.amount.length>8){
+					return;
+				}
 				// 不允许直接输入+-.0C完成
 				if(this.amount == "0"){
-					if(data.index == "3" || data.index == "7" || data.index == "11" || data.index == "12" || data.index == "13"  || data.index == "14"){
+					if(data.index == "3" || data.index == "7" || data.index == "11" || data.index == "12" || data.index == "13"  || data.index == "14"  || data.index == "15"){
 						this.formula = " ";
+						var tips = "支出";
+						if(this.tabIndex){
+							tips = "收入";
+						}
+						uni.showToast({
+							icon: 'none',
+							title: "请输入"+tips+"金额",
+							duration: 2000
+						});
 						return;
 					}
 				}
@@ -220,7 +232,7 @@
 					amount:this.amount,
 					date:this.date
 				}
-				var link = "add"
+				var link = "add";
 				if(this.tabIndex){
 					link ="InCome"
 				}
@@ -232,14 +244,22 @@
 						if (!res.data.success) {
 							uni.showToast({
 								icon: 'none',
-								title: res.data.msg,
+								title: res.data.message,
 								duration: 2000
 							});
 							return false;
 						}
-						uni.navigateTo({
-							url: "/pages/list/list"
-						})
+						uni.showToast({
+							icon: 'none',
+							title: "添加成功",
+							duration: 2000
+						});
+						setTimeout(()=>{
+							uni.navigateTo({
+								url: "/pages/list/list"
+							})
+						},2000)
+						
 					}
 				})
 			},
@@ -274,7 +294,6 @@
 					type:"GET",
 					success:res=>{
 						this.list = res.data;
-						console.log(res.data)
 						this.record = this.list[0];
 					}
 				})
@@ -292,7 +311,23 @@
 			}
 		},
 		mounted() {
-			this.listFun();
+			this.listFun();		
+		},
+		onShow(e){
+			this.record = this.list[0];
+			this.payMentTxt="支付宝";
+			this.paymentMethodCode="Alipay";
+			this.remarkTxt = "";
+			this.addressTxt="";
+			this.itemIndex = 0;
+			this.tabIndex = 0;
+			this.amount=0;
+			this.amountArr= [];
+			this.amountStr="";
+			var year =new Date().getFullYear();
+			var month =new Date().getMonth()+1;
+			var day =new Date().getDate();
+			this.date = year+"-"+month+"-"+day;	
 		}
 	}
 </script>
