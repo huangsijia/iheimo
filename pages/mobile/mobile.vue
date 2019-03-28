@@ -20,15 +20,15 @@
 				登录
 			</view>
 			<view class="link">
-				<navigator url="../index/index">找回密码</navigator>
+				<navigator url="../index/index" hover-class="none">找回密码</navigator>
 			</view>
 			<view class="other">
 				<view class="p">
 					其他登录方式
 				</view>
 				<view class="link">
-					<navigator url="../login/login">微信登录</navigator>
-					<navigator url="../index/index">注册</navigator>
+					<navigator url="../login/login" hover-class="none">微信登录</navigator>
+					<navigator url="../index/index" hover-class="none">注册</navigator>
 				</view>
 			</view>
 		</view>

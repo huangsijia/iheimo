@@ -13,8 +13,8 @@
 					其他登录方式
 				</view>
 				<view class="link">
-					<navigator url="../mobile/mobile">手机登录</navigator>
-					<navigator url="../index/index">注册</navigator>
+					<navigator url="../mobile/mobile" hover-class="none">手机登录</navigator>
+					<navigator url="../index/index" hover-class="none">注册</navigator>
 				</view>
 			</view>
 		</view>

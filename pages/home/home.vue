@@ -1,9 +1,11 @@
 <template>
 	<view class="home">
-		<view class="main user">
-			<text class="iconfont">&#xe606;</text>
-			<text>{{persion && persion.user.name}}</text>
-		</view>
+		<navigator url="/pages/personal/personal" hover-class="none" class="main">
+			<view class="user">
+				<text class="iconfont">&#xe606;</text>
+				<text>{{persion && persion.user.name}}</text>
+			</view>
+		</navigator>
 		<view class="white list">
 			<view class="list_li" v-for="(item,index) in list" :key="item">
 				<text class="iconfont">{{item.img}}</text>
@@ -12,7 +14,7 @@
 		</view>
 		<view class="white about">
 			<view class="li" v-for="(item,index) in about" :key="item">
-				<navigator :url="item.url">
+				<navigator :url="item.url" hover-class="none">
 					{{item.txt}}
 					<text class="iconfont">&#xe6aa;</text>
 				</navigator>
@@ -135,8 +137,10 @@
 		}
 
 		.main {
-			padding: 48upx 24upx 80upx 24upx;
+			display: flex;
+			align-items: center;
 			background: $main;
+			padding: 48upx 24upx 80upx 24upx;
 		}
 
 		.user {
@@ -152,8 +156,9 @@
 		}
 
 		.li {
-				width: 100%;
-			navigator{
+			width: 100%;
+
+			navigator {
 				display: flex;
 				justify-content: space-between;
 				font-size: 30upx;
@@ -162,9 +167,11 @@
 				border-bottom: 1px solid $borderColor;
 				margin-left: 24upx;
 			}
+
 			&:last-child {
-				navigator{
-				border-bottom: 0;}
+				navigator {
+					border-bottom: 0;
+				}
 			}
 
 			.iconfont {
