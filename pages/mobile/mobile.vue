@@ -2,18 +2,24 @@
 	<view>
 		<view class="loginMobile">
 			<form class="form">
-				<view class="section msg">
-					<text class="iconfont font">&#xe60c;</text>
-					<input v-model="info.msg" type="text" placeholder="请输入邮箱地址" placeholder-class="placeholder" value="" />
-				</view>
-				<view class="section password">
-					<text class="iconfont font">&#xe769;</text>
-					<input v-model="info.password" :password="isOpen?false:true" type="text" maxlength="20" placeholder="请输入6-20位密码"
-					 placeholder-class="placeholder" value="" />
-					<view class="eye" @click="isOpen=!isOpen">
-						<text class="iconfont" v-if="isOpen">&#xe681;</text>
-						<text class="iconfont" v-else>&#xe663;</text>
+				<view class="mail">
+					<view class="section">
+						<text class="iconfont font">&#xe60c;</text>
+						<input v-model="mail" type="text" placeholder="请输入邮箱地址" placeholder-class="placeholder" />
 					</view>
+					<text class="iconfont" v-if="mail" @tap="clearModel('mail')">&#xe6ab;</text>
+				</view>
+				<view class="password">
+					<view class="section">
+						<text class="iconfont font">&#xe769;</text>
+						<input v-model="password" :password="isOpen?false:true" type="text" maxlength="20" placeholder="请输入6-20位密码"
+						 placeholder-class="placeholder" />
+						<view class="eye" @click="isOpen=!isOpen">
+							<text class="iconfont" v-if="isOpen">&#xe681;</text>
+							<text class="iconfont" v-else>&#xe663;</text>
+						</view>
+					</view>
+					<text class="iconfont" v-if="password" @click="clearModel('password')">&#xe6ab;</text>
 				</view>
 			</form>
 			<view class="btn" @click="loginFun">
@@ -43,19 +49,20 @@
 		data() {
 			return {
 				// 表单数据
-				info: {
-					msg: "", // 手机号码
-					password: "" // 密码
-				},
-				isOpen: false ,// 密码眼睛是不是开着
-				redirect:""
+				mail: "",
+				password: "", // 密码
+				isOpen: false, // 密码眼睛是不是开着
+				redirect: ""
 			};
 		},
 		methods: {
 			...mapMutations(['login']),
+			clearModel(params) {
+				this[params] = "";
+			},
 			// 检验输入的数据
 			chechInfo() {
-				if (!this.$public.reg.mailReg.test(this.info.msg)) {
+				if (!this.$public.reg.mailReg.test(this.mail)) {
 					uni.showToast({
 						icon: "none",
 						title: '请输入正确的邮箱地址',
@@ -65,7 +72,7 @@
 					return false
 				}
 
-				if (!this.$public.reg.passwordReg.test(this.info.password)) {
+				if (!this.$public.reg.passwordReg.test(this.password)) {
 					uni.showToast({
 						icon: "none",
 						title: '请输入6-20位密码',
@@ -83,10 +90,10 @@
 				}
 				this.$public.API_GET({
 					url: "login",
-					type:"POST",
+					type: "POST",
 					data: {
-						userName: this.info.msg,
-						password: this.info.password
+						userName: this.mail,
+						password: this.password
 					},
 					success: (res) => {
 						if (!res.data.success) {
@@ -96,12 +103,17 @@
 							});
 							return false;
 						}
+						uni.showToast({
+							icon: 'none',
+							title: "登录成功",
+							duration: 2000
+						});
 						this.login(res.data);
-						uni.setStorageSync("persion",res.data);
+						uni.setStorageSync("persion", res.data);
 						if (this.redirect) {
 							uni.reLaunch({
 								url: this.redirect
-							});							
+							});
 						} else {
 							uni.reLaunch({
 								url: '/pages/index/index'
@@ -175,13 +187,22 @@
 		}
 
 		.form {
-			.section {
+
+			.mail,
+			.password {
 				width: 80%;
 				margin: 0 auto;
 				padding: 30upx 0;
 				display: flex;
 				align-items: center;
 				border-bottom: 1px solid $borderColor;
+				justify-content: space-between;
+			}
+
+			.section {
+				width: 90%;
+				display: flex;
+				align-items: center;
 
 				.font {
 					margin-right: 20upx;

@@ -11,17 +11,20 @@
 					关闭
 				</view>
 			</view>
-			<view class="resultOut">
-				<view class="result">
-					<view class="resultLeft">
-						<view class="img">
-							<text class="iconfont">{{record && record.icon}}</text>
-						</view>
-						<text>{{record && record.name}}</text>
+			<view class="result">
+				<view class="result_left">
+					<view class="img">
+						<text :class="[record && record.icon,'iconfont']"></text>
 					</view>
-					<text>{{amount}}</text>
+					<view class="txt">
+						<text>{{record && record.name}}</text>
+						<input type="text" v-model="name" placeholder="编辑名称" />
+					</view>
 				</view>
-				<text class="formula">{{formula}}</text>
+				<view class="amount">
+					<text>{{amount}}</text>
+					<text class="formula">{{formula}}</text>
+				</view>
 			</view>
 
 		</view>
@@ -29,7 +32,7 @@
 			<view :id="item.id" :code="item.code" :class="[{'on':itemIndex == $index},'li']" v-for="(item,$index) in list" :key="$index"
 			 @click="selectList(item,$index)" @touchstart="showKeyFun">
 				<view class="img">
-					<text class="iconfont">{{item&&item.icon}}</text>
+					<text :class="[item.icon,'iconfont']"></text>
 				</view>
 				<p>{{item&&item.name}}</p>
 			</view>
@@ -106,7 +109,8 @@
 				remarkFocus:false,
 				date:new Date(),
 				addressFocus:false,
-				addressTxt:""
+				addressTxt:"",
+				name:""
 			};
 		},
 		methods: {
@@ -223,8 +227,16 @@
 				this.addressFocus = true;
 			},
 			submitFun(){
+				if(!this.name){
+					uni.showToast({
+						icon: 'none',
+						title: "请编辑名称",
+						duration: 2000
+					});
+					return
+				}
 				var sendData = {
-					name:this.record.name,
+					name:this.name,
 					consumptionTypeCode:this.record.code,
 					paymentMethodCode:this.paymentMethodCode,
 					description:this.remarkTxt,
@@ -277,6 +289,7 @@
 				}else{
 					this.listFun();
 				}
+				this.itemIndex=0;
 			},
 			//li切换class
 			selectList(item, index) {
@@ -290,7 +303,7 @@
 			//分类列表
 			listFun(){
 				this.$public.API_GET({
-					url:"list",
+					url:"getconsumptiontype",
 					type:"GET",
 					success:res=>{
 						this.list = res.data;
@@ -317,6 +330,7 @@
 			this.record = this.list[0];
 			this.payMentTxt="支付宝";
 			this.paymentMethodCode="Alipay";
+			this.name = "";
 			this.remarkTxt = "";
 			this.addressTxt="";
 			this.itemIndex = 0;
@@ -334,8 +348,10 @@
 
 <style scoped="" lang="scss">
 	@import '../../common/skin.scss';
-
 	.add {
+		.iconfont{
+			font-size:46upx;
+		}
 		.add_fixed {
 			width: 100%;
 			position: fixed;
@@ -399,34 +415,34 @@
 			background: $bg;
 			border-radius: 50%;
 		}
-
 		.result {
 			height: 120upx;
-			line-height: 120upx;
 			border: 1px solid $borderColor;
-			font-size: 50upx;
 			padding-right: 24upx;
 			display: flex;
 			justify-content: space-between;
-			text-align: center;
 			background: $white;
-
-			.resultLeft {
+			align-items: center;
+			.result_left {
 				display: flex;
 				flex-wrap: nowrap;
 				align-items: center;
 				font-size: 30upx;
-
 				.img {
 					background: $main;
 					color: $white;
+					text-align: center;
+				}
+				.txt{font-size: 36upx;color:$ft-333;
+					input{
+						font-size: 24upx;
+						color:$ft-999;
+					}
 				}
 			}
-		}
-
-		.resultOut {
-			position: relative;
-
+			.amount{
+				font-size: 50upx;
+			}
 			.formula {
 				position: absolute;
 				bottom: 2upx;
@@ -435,7 +451,6 @@
 				font-size: 24upx;
 			}
 		}
-
 		.key {
 			width: 100%;
 			position: fixed;
