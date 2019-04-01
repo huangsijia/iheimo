@@ -71,13 +71,14 @@
 				isLoadMore: true // 加载更多
 			};
 		},
-		onPullDownRefresh() {
-			this.offset = 0;
+		onPullDownRefresh() { //监听用户下拉动作，一般用于下拉刷新
+			this.pageIndex = 0;
 			this.isLoadMore = true;
 			this.listFun();
 		},
 		methods: {
 			radioFun(num) {
+				this.pageIndex = 0;
 				if (num) {
 					this.isInCome = false;
 					this.listFun();
@@ -114,22 +115,37 @@
 					endDate: this.rangetime[1],
 					consumptionTypeCode: "",
 					name: "",
-					pageIndex: 0,
-					pageSize: 10
+					pageSize: this.pageSize,
+					pageIndex: this.pageIndex,
 				}
 				this.$public.API_GET({
 					url: dataName,
 					data: sendData,
 					type: "POST",
 					success: res => {
+						if (!this.getMore) {
+							uni.stopPullDownRefresh();
+						}
+
+						if (!res.data.success) {
+							uni.showToast({
+								icon: 'none',
+								title: res.data.message,
+								duration: 2000
+							});
+							return false;
+						}
 						if (res.data.data.length < this.pageSize) {
 							this.isLoadMore = false;
 						}
-						this.pageIndex += res.data.data.length;
-						this.list = res.data.data;
+						++this.pageIndex;
 
-
-
+						console.log(this.getMore)
+						if (this.getMore) {
+							this.list = this.list.concat(res.data.data);
+						} else {
+							this.list = res.data.data;
+						}
 						this.out = 0;
 						this.inCome = 0;
 						this.list.forEach((ele) => {
@@ -141,8 +157,56 @@
 						})
 					}
 				})
-
 			},
+			listFunMore() {
+				var dataName = "inComeList"
+				if (this.isInCome) {
+					dataName = "list"
+				}
+				var sendData = {
+					startDate: this.rangetime[0],
+					endDate: this.rangetime[1],
+					consumptionTypeCode: "",
+					name: "",
+					pageSize: this.pageSize,
+					pageIndex: this.pageIndex,
+				}
+				this.$public.API_GET({
+					url: dataName,
+					data: sendData,
+					type: "POST",
+					success: res => {
+						if (!res.data.success) {
+							uni.showToast({
+								icon: 'none',
+								title: res.data.message,
+								duration: 2000
+							});
+							return false;
+						}
+						if (res.data.data.length < this.pageSize) {
+							this.isLoadMore = false;
+						}
+						++this.pageIndex;
+
+						this.list = this.list.concat(res.data.data);
+						this.out = 0;
+						this.inCome = 0;
+						this.list.forEach((ele) => {
+							if (this.isInCome) {
+								this.out += Number(ele.amount);
+							} else {
+								this.inCome += Number(ele.amount)
+							}
+						})
+					}
+				})
+			},
+		},
+		onReachBottom() { //页面上拉触底事件的处理函数
+			if (this.isLoadMore) {
+				this.listFunMore()
+			}
 		},
 		mounted() {
 			this.rangetime[0] = (new Date().getFullYear()) + "/" + (new Date().getMonth() + 1) + "/" + (new Date().getDate()) +
