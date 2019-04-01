@@ -102,6 +102,8 @@
 					this[this.type] = e.value;
 					console.log(e);
 				}
+				this.pageIndex = 0;
+				this.isLoadMore = true;
 				this.listFun();
 			},
 			//分类列表
@@ -135,12 +137,12 @@
 							});
 							return false;
 						}
+						
 						if (res.data.data.length < this.pageSize) {
 							this.isLoadMore = false;
 						}
 						++this.pageIndex;
 
-						console.log(this.getMore)
 						if (this.getMore) {
 							this.list = this.list.concat(res.data.data);
 						} else {
@@ -213,6 +215,8 @@
 				" 00:00:00";
 			this.rangetime[1] = (new Date().getFullYear()) + "/" + (new Date().getMonth() + 1) + "/" + (new Date().getDate()) +
 				" 23:59:59";
+// this.rangetime[0] ="2019/3/1 00:00:00";
+// this.rangetime[1] ="2019/4/1 00:00:00";
 			this.listFun();
 		}
 	}
