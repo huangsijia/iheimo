@@ -5,10 +5,11 @@ import Public from './common/public.js'
 
 
 import './font/iconfont.css'
-import './common/filter'
+import fileters from './common/filter';
 
 Vue.prototype.$store = store;
-Vue.prototype.$public = Public
+Vue.prototype.$public = Public;
+Vue.prototype.$filter = fileters;
 
 Vue.config.productionTip = false
 

@@ -1,10 +1,13 @@
 <template>
 	<view class="list">
 		<view class="time">
-			<view class="" @click="onShowDatePicker('rangetime')">
-				<text>{{rangetime}}</text>&nbsp;&nbsp;
-				<text class="iconfont" v-if="showPicker">&#xe611;</text>
-				<text class="iconfont" v-else>&#xe7b3;</text>
+			<view class="time_space">
+				<view @click="onShowDatePicker('rangetime')">
+					<text>{{rangetime}}</text>&nbsp;&nbsp;
+					<text class="iconfont" v-if="showPicker">&#xe611;</text>
+					<text class="iconfont" v-else>&#xe7b3;</text>
+				</view>
+				<text @click="showArr">筛选</text>
 			</view>
 			<mx-date-picker :show="showPicker" :type="type" :value="value" :show-seconds="true" @confirm="onSelected" @cancel="onSelected" />
 		</view>
@@ -15,14 +18,14 @@
 						<text v-if="isInCome">&#xe6ba;</text>
 						<text v-else>&#xe612;</text>
 					</text>
-					支出：&yen;{{out}}
+					支出：&yen;{{comeTotalAmount}}
 				</view>
 				<view class="radio" @click="radioFun(1)">
 					<text :class="['iconfont',{'on':!isInCome}]">
 						<text v-if="!isInCome">&#xe6ba;</text>
 						<text v-else>&#xe612;</text>
 					</text>
-					收入：&yen;{{inCome}}
+					收入：&yen;{{outTotalAmount}}
 				</view>
 			</view>
 		</view>
@@ -30,30 +33,58 @@
 			<view class="li" v-for="(item ,index) in list" :key="item">
 				<view class="liLeft">
 					<view class="liLeftBorder">
-						<text :class="[item && item.icon,'iconfont']"></text>
+						<text :class="[item && item.consumptionTypeIcon,'iconfont']"></text>
 					</view>
 				</view>
 				<view class="liRight">
-					<text class="remark">
-						<text v-if="item && item.name">{{item.name}}</text>
-						<text v-if="item && item.description">、{{item.description}}</text>
-						<text v-if="item && item.location">、{{item.location}}</text>
-					</text>
-					<text class="amount">{{symbol}}{{item && item.amount}}元</text>
+					<view class="liRightTxt">
+						<text class="remark">
+							<text v-if="item && item.name">{{item.name}}</text>
+							<text v-if="item && item.description">、{{item.description}}</text>
+							<text v-if="item && item.location">、{{item.location}}</text>
+						</text>
+						<text class="createDate">{{item.date}}</text>
+					</view>
+					<text :class="['amount',{'green':!isInCome}]">{{symbol}}{{item && item.amount}}元</text>
 				</view>
 			</view>
 		</view>
 		<view v-else>
 			<view class="noData">暂无数据</view>
 		</view>
+		<lvv-popup position="bottom" ref="filterLvvpopref">
+			<view class="lvvpopref filterLvvpopref">
+				<text class="title">筛选分类</text>
+				<text class="type_name red">支出</text>
+				<view class="type">
+					<view :class="['type_li',{'on':getConsumptionTypeIndex == index}]" v-for="(item,index) in getconsumptiontypeArr"
+					 :key="item" @click="getConsumptionTypeArrFun(item,index)">
+						{{item.name}}
+					</view>
+				</view>
+				<text class="type_name green">收入</text>
+				<view class="type">
+					<view :class="['type_li',{'on':getComeTypeIndex == index}]" v-for="(item,index) in getInCometypeArr" :key="item"
+					 @click="getComeTypeArrFun(item,index)">
+						{{item.name}}
+					</view>
+				</view>
+				<view class="button">
+					<text class="reset" @click="resetFun">重置</text>
+					<text class="complete" @click="completeFun">完成</text>
+				</view>
+			</view>
+		</lvv-popup>
 	</view>
 </template>
 
 <script>
+	import lvvPopup from '../../components/lvv-popup/lvv-popup.vue'
 	import MxDatePicker from "../../components/mx-datepicker/mx-datepicker.vue";
 	export default {
 		components: {
-			MxDatePicker
+			MxDatePicker,
+			lvvPopup
 		},
 		data() {
 			return {
@@ -61,14 +92,20 @@
 				rangetime: [],
 				type: 'date',
 				value: '',
-				out: 0,
-				inCome: 0,
+				totalAmount: 0,
+				comeTotalAmount: 0,
+				outTotalAmount: 0,
 				isInCome: true, //是否显示的是支出
 				list: [],
 				symbol: "-",
-				pageSize: 10, // 每次最大返回条数
+				pageSize: 15, // 每次最大返回条数
 				pageIndex: 0, // 起始条数
-				isLoadMore: true // 加载更多
+				isLoadMore: true, // 加载更多
+				getconsumptiontypeArr: [],
+				getInCometypeArr: [],
+				getConsumptionTypeIndex: -1,
+				getComeTypeIndex: -1,
+				consumptionTypeCode: ""
 			};
 		},
 		onPullDownRefresh() { //监听用户下拉动作，一般用于下拉刷新
@@ -77,17 +114,46 @@
 			this.listFun();
 		},
 		methods: {
+			showArr() {
+				this.getComeTypeIndex = -1;
+				this.getConsumptionTypeIndex = -1;
+				this.$refs.filterLvvpopref.show();
+			},
+			getConsumptionTypeArrFun(item, index) {
+				this.getConsumptionTypeIndex = index;
+				this.getComeTypeIndex = -1;
+				this.consumptionTypeCode = item.code;
+				this.isInCome = true;
+			},
+			getComeTypeArrFun(item, index) {
+				this.getComeTypeIndex = index;
+				this.getConsumptionTypeIndex = -1;
+				this.consumptionTypeCode = item.code;
+				this.isInCome = false;
+			},
+			completeFun() {
+				this.pageIndex = 0;
+				this.isLoadMore = true;
+				this.listFun();
+				this.$refs.filterLvvpopref.close();
+			},
+			resetFun() {
+				this.getComeTypeIndex = -1;
+				this.getConsumptionTypeIndex = -1;
+			},
 			radioFun(num) {
 				this.pageIndex = 0;
 				if (num) {
 					this.isInCome = false;
-					this.listFun();
 					this.symbol = "+";
 				} else {
 					this.isInCome = true;
-					this.listFun();
 					this.symbol = "-";
 				}
+				this.consumptionTypeCode = "";
+				this.pageIndex = 0;
+				this.isLoadMore = true;
+				this.listFun();
 			},
 			onShowDatePicker(type) { //显示
 				this.type = type;
@@ -115,7 +181,7 @@
 				var sendData = {
 					startDate: this.rangetime[0],
 					endDate: this.rangetime[1],
-					consumptionTypeCode: "",
+					consumptionTypeCode: this.consumptionTypeCode,
 					name: "",
 					pageSize: this.pageSize,
 					pageIndex: this.pageIndex,
@@ -125,10 +191,7 @@
 					data: sendData,
 					type: "POST",
 					success: res => {
-						if (!this.getMore) {
-							uni.stopPullDownRefresh();
-						}
-
+						uni.stopPullDownRefresh();
 						if (!res.data.success) {
 							uni.showToast({
 								icon: 'none',
@@ -137,26 +200,25 @@
 							});
 							return false;
 						}
-						
 						if (res.data.data.length < this.pageSize) {
 							this.isLoadMore = false;
 						}
 						++this.pageIndex;
-
-						if (this.getMore) {
-							this.list = this.list.concat(res.data.data);
+						//总额度
+						this.totalAmount = this.$filter.formatMoney(res.data.extraData.totalAmount);
+						if (this.isInCome) {
+							this.comeTotalAmount = this.totalAmount;
 						} else {
-							this.list = res.data.data;
+							this.outTotalAmount = this.totalAmount;
 						}
-						this.out = 0;
-						this.inCome = 0;
-						this.list.forEach((ele) => {
-							if (this.isInCome) {
-								this.out += Number(ele.amount);
-							} else {
-								this.inCome += Number(ele.amount)
-							}
-						})
+
+						this.list = res.data.data;
+						this.list.forEach(ele => {
+							ele.amount = this.$filter.formatMoney(ele.amount)
+						});
+						this.list.forEach(ele => {
+							ele.date = this.$filter.formatDate(ele.date)
+						});
 					}
 				})
 			},
@@ -190,17 +252,39 @@
 							this.isLoadMore = false;
 						}
 						++this.pageIndex;
+						//总额度
+						this.totalAmount = this.$filter.formatMoney(res.data.extraData.totalAmount);
+						if (this.isInCome) {
+							this.comeTotalAmount = this.totalAmount;
+						} else {
+							this.outTotalAmount = this.totalAmount;
+						}
 
 						this.list = this.list.concat(res.data.data);
-						this.out = 0;
-						this.inCome = 0;
-						this.list.forEach((ele) => {
-							if (this.isInCome) {
-								this.out += Number(ele.amount);
-							} else {
-								this.inCome += Number(ele.amount)
-							}
-						})
+						this.list.forEach(ele => {
+							ele.amount = this.$filter.formatMoney(ele.amount)
+						});
+						this.list.forEach(ele => {
+							ele.date = this.$filter.formatDate(ele.date)
+						});
+					}
+				})
+			},
+			getconsumptiontype() {
+				this.$public.API_GET({
+					url: "getconsumptiontype",
+					type: "GET",
+					success: res => {
+						this.getconsumptiontypeArr = res.data;
+					}
+				})
+			},
+			getInCometype() {
+				this.$public.API_GET({
+					url: "getInCometype",
+					type: "GET",
+					success: res => {
+						this.getInCometypeArr = res.data;
 					}
 				})
 			},
@@ -215,9 +299,12 @@
 				" 00:00:00";
 			this.rangetime[1] = (new Date().getFullYear()) + "/" + (new Date().getMonth() + 1) + "/" + (new Date().getDate()) +
 				" 23:59:59";
-// this.rangetime[0] ="2019/3/1 00:00:00";
-// this.rangetime[1] ="2019/4/1 00:00:00";
+			// 			this.rangetime[0] ="2019/3/1 00:00:00";
+			// 			this.rangetime[1] ="2019/4/1 00:00:00";
 			this.listFun();
+			this.getconsumptiontype();
+			this.getInCometype();
+			this.outTotalAmount = this.$filter.formatMoney(this.outTotalAmount);
 		}
 	}
 </script>
@@ -233,6 +320,11 @@
 			text {
 				color: $white;
 			}
+		}
+
+		.time_space {
+			display: flex;
+			justify-content: space-between;
 		}
 
 		.chart {
@@ -291,10 +383,141 @@
 				justify-content: space-between;
 				border-bottom: 1upx solid $borderColor;
 			}
+
+			.liRightTxt {
+				width: 75%;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.remark {
+				color: $ft-333;
+				font-size: 30upx;
+			}
+
+			.createDate {
+				color: $ft-999;
+				font-size: 24upx;
+			}
+
+			.amount {
+				width: 25%;
+				text-align: right;
+				color: $red;
+			}
 		}
 
 		.noData {
 			text-align: center;
+		}
+
+		.lvvpopref {
+			width: 750upx;
+			background: #FFFFFF;
+			position: absolute;
+			bottom: 0;
+			font-size: 30upx;
+			display: flex;
+			flex-direction: column;
+
+			.title {
+				font-size: 32upx;
+				color: $ft-666;
+				font-weight: bold;
+				border-bottom: 1px solid $borderColor;
+				padding: 24upx 0;
+				margin: 0 24upx 24upx;
+			}
+
+			.type_name {
+				padding: 0 24upx 0;
+				font-weight: bold;
+			}
+
+			.type {
+				padding: 24upx;
+				display: flex;
+				flex-wrap: wrap;
+				font-size: 24upx;
+
+				.type_li {
+					position: relative;
+					width: 22%;
+					height: 60upx;
+					line-height: 60upx;
+					margin-bottom: 20upx;
+					background: $bg;
+					text-align: center;
+					margin-right: 4%;
+					border-radius: 5upx;
+
+					&:nth-child(4n) {
+						margin-right: 0
+					}
+
+					&.on {
+						border: 1px solid $red;
+						box-sizing: border-box;
+						background: $white;
+
+						&:after {
+							content: " ";
+							position: absolute;
+							border-width: 0 0 30upx 40upx;
+							bottom: 0;
+							right: 0;
+							border-style: solid;
+							border-color: transparent transparent $red transparent;
+						}
+
+						&:before {
+							content: " ";
+							position: absolute;
+							bottom: 2upx;
+							right: 8upx;
+							z-index: 999;
+							width: 8upx;
+							height: 16upx;
+							border-color: $white;
+							border-style: solid;
+							border-width: 0 3upx 5upx 0;
+							transform: rotate(45deg);
+						}
+					}
+
+
+				}
+			}
+
+			.button {
+				display: flex;
+
+				text {
+					width: 50%;
+					text-align: center;
+					height: 90upx;
+					line-height: 90upx;
+					font-size: 38upx;
+
+					&.reset {
+						background: $bg;
+						color: $ft-333;
+					}
+
+					&.complete {
+						background: $red;
+						color: $white;
+					}
+				}
+			}
+		}
+
+		.red {
+			color: $red;
+		}
+
+		.green {
+			color: $green;
 		}
 	}
 </style>
