@@ -3,7 +3,14 @@
 		<view class="time">
 			<view class="time_space">
 				<view @click="onShowDatePicker('rangetime')">
-					<text>{{rangetime}}</text>&nbsp;&nbsp;
+					<text>
+						<template v-if="rangetime[0] == ''">
+							全部
+						</template>
+						<template v-else>
+							{{rangetime[0]}}&nbsp;-&nbsp;{{rangetime[1]}}
+						</template>
+					</text>&nbsp;&nbsp;
 					<text class="iconfont" v-if="showPicker">&#xe611;</text>
 					<text class="iconfont" v-else>&#xe7b3;</text>
 				</view>
@@ -14,16 +21,16 @@
 		<view class="chart">
 			<view class="chart_top">
 				<view class="radio" @click="radioFun(0)">
-					<text :class="['iconfont',{'on':isInCome}]">
-						<text v-if="isInCome">&#xe6ba;</text>
-						<text v-else>&#xe612;</text>
+					<text :class="[{'on':isInCome}]">
+						<text class='iconfont' v-if="isInCome">&#xe6ba;</text>
+						<text class='iconfont' v-else>&#xe612;</text>
 					</text>
 					支出：&yen;{{comeTotalAmount}}
 				</view>
 				<view class="radio" @click="radioFun(1)">
-					<text :class="['iconfont',{'on':!isInCome}]">
-						<text v-if="!isInCome">&#xe6ba;</text>
-						<text v-else>&#xe612;</text>
+					<text :class="[{'on':!isInCome}]">
+						<text class='iconfont' v-if="!isInCome">&#xe6ba;</text>
+						<text class='iconfont' v-else>&#xe612;</text>
 					</text>
 					收入：&yen;{{outTotalAmount}}
 				</view>
@@ -54,6 +61,13 @@
 		</view>
 		<lvv-popup position="bottom" ref="filterLvvpopref">
 			<view class="lvvpopref filterLvvpopref">
+				<text class="title">筛选类型</text>
+				<view class="type">
+					<view :class="['type_li',{'on':getAllIndex == index}]" v-for="(item,index) in all"
+					 :key="item" @click="getAllFun(item,index)">
+						{{item}}
+					</view>
+				</view>
 				<text class="title">筛选分类</text>
 				<text class="type_name red">支出</text>
 				<view class="type">
@@ -88,6 +102,8 @@
 		},
 		data() {
 			return {
+				all:["最近一周","最近一个月","最近三个月","全部"],
+				getAllIndex:-1,
 				showPicker: false,
 				rangetime: [],
 				type: 'date',
@@ -118,6 +134,28 @@
 				this.getComeTypeIndex = -1;
 				this.getConsumptionTypeIndex = -1;
 				this.$refs.filterLvvpopref.show();
+			},
+			getAllFun(item,index){
+				let days = 7;
+				let sTime ="";
+				let eTime =""
+				if(index==0){
+					days = 7;
+				}else if(index==1){
+					days = 30;
+				}else if(index == 2){
+					days = 90;
+				}
+				var recent =  new Date(new Date().getTime()-86400000*days);//最近三天
+				sTime = recent.getFullYear()+"/"+ (recent.getMonth()+1)+"/"+ recent.getDate()+" 00:00:00";
+				eTime = (new Date().getFullYear()) + "/" + (new Date().getMonth() + 1) + "/" + (new Date().getDate()) +" 23:59:59";
+				if(index == 3){
+					sTime ="";
+					eTime ="";
+				}
+				
+				this.rangetime =[sTime,eTime];
+				this.getAllIndex = index;
 			},
 			getConsumptionTypeArrFun(item, index) {
 				this.getConsumptionTypeIndex = index;
@@ -295,16 +333,14 @@
 			}
 		},
 		mounted() {
-			this.rangetime[0] = (new Date().getFullYear()) + "/" + (new Date().getMonth() + 1) + "/" + (new Date().getDate()) +
-				" 00:00:00";
-			this.rangetime[1] = (new Date().getFullYear()) + "/" + (new Date().getMonth() + 1) + "/" + (new Date().getDate()) +
-				" 23:59:59";
-			// 			this.rangetime[0] ="2019/3/1 00:00:00";
-			// 			this.rangetime[1] ="2019/4/1 00:00:00";
+			var n = new Date(new Date().getTime()-86400000*3);//最近三天
+			this.rangetime[0] = n.getFullYear()+"/"+ (n.getMonth()+1)+"/"+ n.getDate()+" 00:00:00";
+			this.rangetime[1] = (new Date().getFullYear()) + "/" + (new Date().getMonth() + 1) + "/" + (new Date().getDate()) +" 23:59:59";
 			this.listFun();
 			this.getconsumptiontype();
 			this.getInCometype();
 			this.outTotalAmount = this.$filter.formatMoney(this.outTotalAmount);
+			this.$refs.filterLvvpopref.show();
 		}
 	}
 </script>
@@ -517,7 +553,7 @@
 		}
 
 		.green {
-			color: $green;
+			color: $green !important;
 		}
 	}
 </style>

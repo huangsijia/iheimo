@@ -323,9 +323,6 @@
 				})
 			}
 		},
-		mounted() {
-			this.listFun();		
-		},
 		onShow(e){
 			this.record = this.list[0];
 			this.payMentTxt="支付宝";
@@ -341,8 +338,9 @@
 			var year =new Date().getFullYear();
 			var month =new Date().getMonth()+1;
 			var day =new Date().getDate();
-			this.date = year+"-"+month+"-"+day;	
-		}
+			this.date = year+"-"+month+"-"+day;
+			this.listFun()
+		},
 	}
 </script>
 
