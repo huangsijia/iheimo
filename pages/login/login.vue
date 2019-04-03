@@ -1,11 +1,12 @@
 <template>
 	<view>
 		<view class="login">
+			{{user}}
 			<view class="box">
 				iheimo
 			</view>
 			<text class="p">懂自己，懂生活</text>
-			<view class="btn">
+			<view class="btn" @click="loginFun">
 				微信登录
 			</view>
 			<view class="other">
@@ -32,19 +33,53 @@
 		},
 		data() {
 			return {
-
+				redirect: ""
 			};
 		},
-		methods:{
-			// ...mapMutations(['logout']),
+		methods: {
+			...mapMutations(['login']),
+			loginFun() {
+				uni.getProvider({
+					service: 'oauth',
+					success: function(res) {
+						console.log(res.provider);
+						//支持微信、qq和微博等
+						if (~res.provider.indexOf('weixin')) {
+							uni.login({
+								provider: 'weixin',
+								success: function(loginRes) {
+									console.log('-------获取openid(unionid)-----');
+									console.log(JSON.stringify(loginRes));
+									this.info = JSON.stringify(loginRes)
+									// 获取用户信息
+									uni.getUserInfo({
+										provider: 'weixin',
+										success: function(infoRes) {
+											console.log('-------获取微信用户所有-----');
+											console.log(JSON.stringify(infoRes));
+											this.login(JSON.stringify(infoRes));
+											uni.setStorageSync("persion", JSON.stringify(infoRes));
+											if (this.redirect) {
+												uni.reLaunch({
+													url: this.redirect
+												});
+											} else {
+												uni.reLaunch({
+													url: '/pages/index/index'
+												});
+											}
+										}
+									});
+								}
+							});
+						}
+					}
+				});
+			}
+
 		},
 		mounted() {
-			uni.login({
-				provider: 'weixin',
-				success: function(loginRes) {
-					console.log(loginRes.authResult);
-				}
-			})
+
 		}
 	}
 </script>
