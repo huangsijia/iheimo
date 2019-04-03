@@ -176,6 +176,7 @@
 				this.$refs.filterLvvpopref.close();
 			},
 			resetFun() {
+				this.getAllIndex = -1;
 				this.getComeTypeIndex = -1;
 				this.getConsumptionTypeIndex = -1;
 			},
