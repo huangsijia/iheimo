@@ -95,7 +95,11 @@
 <script>
 	import lvvPopup from '../../components/lvv-popup/lvv-popup.vue'
 	import MxDatePicker from "../../components/mx-datepicker/mx-datepicker.vue";
+	import {mapState,mapMutations} from 'vuex'
 	export default {
+		computed: {
+			...mapState(['out','come'])
+		},
 		components: {
 			MxDatePicker,
 			lvvPopup
@@ -309,24 +313,6 @@
 					}
 				})
 			},
-			getconsumptiontype() {
-				this.$public.API_GET({
-					url: "getconsumptiontype",
-					type: "GET",
-					success: res => {
-						this.getconsumptiontypeArr = res.data;
-					}
-				})
-			},
-			getInCometype() {
-				this.$public.API_GET({
-					url: "getInCometype",
-					type: "GET",
-					success: res => {
-						this.getInCometypeArr = res.data;
-					}
-				})
-			},
 		},
 		onReachBottom() { //页面上拉触底事件的处理函数
 			if (this.isLoadMore) {
@@ -338,10 +324,9 @@
 			this.rangetime[0] = n.getFullYear()+"/"+ (n.getMonth()+1)+"/"+ n.getDate()+" 00:00:00";
 			this.rangetime[1] = (new Date().getFullYear()) + "/" + (new Date().getMonth() + 1) + "/" + (new Date().getDate()) +" 23:59:59";
 			this.listFun();
-			this.getconsumptiontype();
-			this.getInCometype();
+			this.getconsumptiontypeArr = this.out;
+			this.getInCometypeArr = this.come;
 			this.outTotalAmount = this.$filter.formatMoney(this.outTotalAmount);
-			this.$refs.filterLvvpopref.show();
 		}
 	}
 </script>

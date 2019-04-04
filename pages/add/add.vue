@@ -78,11 +78,13 @@
 	import key from '../../component/key.vue';
 	import lvvPopup from '../../components/lvv-popup/lvv-popup.vue'
 	import calendar from '../../components/uni-calendar/uni-calendar'
+	import {mapState,mapMutations} from 'vuex'
 	export default {
 		computed: {
 			payList() {
 				return this.$store.state.payList;
-			}
+			},
+			...mapState(['out','come'])
 		},
 		components: {
 			key,
@@ -114,6 +116,7 @@
 			};
 		},
 		methods: {
+			...mapMutations(['outMutations','comeMutations']),
 			//计算
 			calculate(data) {
 				if(this.amount.length>8){
@@ -285,11 +288,12 @@
 			selectTab(index) {
 				this.tabIndex = index;
 				if(index){
-					this.getInCometypeFun();
+					this.list= this.come;
 				}else{
-					this.listFun();
+					this.list= this.out;
 				}
 				this.itemIndex=0;
+				this.record =this.list[0]
 			},
 			//li切换class
 			selectList(item, index) {
@@ -301,32 +305,37 @@
 				this.showKey = false;
 			},
 			//分类列表
-			listFun(){
+			getconsumptiontypeFun(){
 				this.$public.API_GET({
 					url:"getconsumptiontype",
 					type:"GET",
 					success:res=>{
-						this.list = res.data;
+						this.outMutations(res.data);
+						this.list = this.out;
 						this.record = this.list[0];
 					}
 				})
-				
 			},
 			getInCometypeFun(){
 				this.$public.API_GET({
 					url:"getInCometype",
 					type:"GET",
 					success:res=>{
-						this.list = res.data;
-						this.record = this.list[0];
+						this.comeMutations(res.data);
 					}
 				})
 			}
 		},
+		onLoad(){
+			this.getconsumptiontypeFun();
+			this.getInCometypeFun();
+		},
 		onShow(e){
+			this.list = this.out;
 			this.record = this.list[0];
 			this.payMentTxt="支付宝";
 			this.paymentMethodCode="Alipay";
+			this.payIndex =0;
 			this.name = "";
 			this.remarkTxt = "";
 			this.addressTxt="";
@@ -339,7 +348,6 @@
 			var month =new Date().getMonth()+1;
 			var day =new Date().getDate();
 			this.date = year+"-"+month+"-"+day;
-			this.listFun()
 		},
 	}
 </script>
