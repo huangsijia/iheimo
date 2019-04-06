@@ -269,12 +269,18 @@
 							title: "添加成功",
 							duration: 2000
 						});
-						setTimeout(()=>{
-							uni.navigateTo({
-								url: "/pages/list/list"
-							})
-						},2000)
-						
+						this.record =this.list[0];
+						this.payMentTxt="支付宝";
+						this.paymentMethodCode="Alipay";
+						this.payIndex =0;
+						this.name = "";
+						this.remarkTxt = "";
+						this.addressTxt="";
+						this.itemIndex = 0;
+						this.tabIndex = 0;
+						this.amount=0;
+						this.amountArr= [];
+						this.amountStr="";
 					}
 				})
 			},
@@ -327,28 +333,10 @@
 			}
 		},
 		onLoad(){
+			
 			this.getconsumptiontypeFun();
 			this.getInCometypeFun();
-		},
-		onShow(e){
-			this.list = this.out;
-			this.record = this.list[0];
-			this.payMentTxt="支付宝";
-			this.paymentMethodCode="Alipay";
-			this.payIndex =0;
-			this.name = "";
-			this.remarkTxt = "";
-			this.addressTxt="";
-			this.itemIndex = 0;
-			this.tabIndex = 0;
-			this.amount=0;
-			this.amountArr= [];
-			this.amountStr="";
-			var year =new Date().getFullYear();
-			var month =new Date().getMonth()+1;
-			var day =new Date().getDate();
-			this.date = year+"-"+month+"-"+day;
-		},
+		}
 	}
 </script>
 
