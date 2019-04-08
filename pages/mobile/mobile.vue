@@ -62,7 +62,7 @@
 			},
 			// 检验输入的数据
 			chechInfo() {
-				if (!this.$public.reg.mailReg.test(this.mail)) {
+				if (!this.$public.reg.mailReg.test(this.mail) && !this.$public.reg.nameReg.test(this.mail)) {
 					uni.showToast({
 						icon: "none",
 						title: '请输入正确的邮箱地址',

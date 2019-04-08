@@ -10,6 +10,7 @@ export default{
 		mobileReg: /^(13[0-9]|14[5-9]|15[0-3,5-9]|16[6]|17[0-8]|18[0-9]|19[89])\d{8}$/,
 		mailReg:/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/, 
 		passwordReg: /^\S{6,20}$/,
+		nameReg:/^[A-Za-z]*$/
 	},
 	
 	API_GET: function(config) {

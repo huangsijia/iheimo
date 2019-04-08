@@ -164,7 +164,6 @@
 				var result = 0;
 				var reg = new RegExp("(\\+|\\-|\\*|\\/)");
 				this.amountArr = this.amountStr.split(reg);
-				
 				//点击完成
 				if(data.index == "15"){
 					this.submitFun();
@@ -173,14 +172,9 @@
 				//俩位小数
 				if (this.amountStr.includes(".")) {
 					var numIndexOf = this.amountStr.indexOf(".");
-					if (numIndexOf != -1) {
-						var numSub = this.amountStr.substring(numIndexOf + 1, this.amountStr.length)
-						if (numSub.length > 2) {
-							this.amountStr = this.amountStr.substring(0, numIndexOf + 3);
-						}
+					if (new RegExp(/^-?\d*(\.\d{3,})$/).test(this.amountStr)) {		
+						this.amountStr = this.amountStr.substring(0, numIndexOf + 3)
 					}
-					this.amount = this.amountStr;
-					return;
 				}
 				//加减计算
 				if(this.amountStr.includes("+") || this.amountStr.includes("-")){
