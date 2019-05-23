@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///H:/uni/iheimo/main.js"],"names":["Page","App"],"mappings":";;;;;;;;;;AAAA;AACA;AACI,wM;AACAA,IAAI,CAAC,+BAAYC,YAAZ,CAAD,CAAJ,C","file":"pages/index/add.js","sourcesContent":["import 'uni-pages';\nimport pageFactory from 'mpvue-page-factory'\n    import App from './pages/index/add.vue'\n    Page(pageFactory(App))"],"sourceRoot":""}
