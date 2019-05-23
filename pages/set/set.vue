@@ -4,7 +4,7 @@
 			<view class="li border" @click="changePwd">
 				<navigator url="" hover-class="none">
 					<text class="txt">修改密码</text>
-					<text class="iconfont">&#xe6aa;</text>
+					<image :src="'../../static/img/icon-shezhi-youjiantou.png'" class="icon"></image>
 				</navigator>
 			</view>
 		</view>
@@ -58,6 +58,7 @@
 			navigator {
 				display: flex;
 				justify-content: space-between;
+				align-items: center;
 				padding-left: 24upx;
 			}
 
@@ -65,12 +66,6 @@
 				navigator {
 					border-bottom: 0;
 				}
-			}
-
-			.iconfont {
-				font-size: 60upx;
-				padding-right: 12upx;
-				color: $borderColor;
 			}
 		}
 

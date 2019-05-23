@@ -14,7 +14,7 @@
 			<view class="result">
 				<view class="result_left">
 					<view class="img">
-						<text :class="[record && record.icon,'iconfont']"></text>
+						<image :src="'../../static/img/'+record.icon+'.png'" class="icon"></image>
 					</view>
 					<view class="txt">
 						<text>{{record && record.name}}</text>
@@ -32,7 +32,7 @@
 			<view :id="item.id" :code="item.code" :class="[{'on':itemIndex == $index},'li']" v-for="(item,$index) in list" :key="$index"
 			 @click="selectList(item,$index)" @touchstart="showKeyFun">
 				<view class="img">
-					<text :class="[item.icon,'iconfont']"></text>
+					<image :src="'../../static/img/'+item.icon+'.png'" class="icon"></image>
 				</view>
 				<p>{{item&&item.name}}</p>
 			</view>
@@ -51,10 +51,10 @@
 					<text class="text">选择账户</text>
 					<view :class="[{'on':payIndex == $index},'payRow']" v-for="(item,$index) in payList" :key="item" @click="selectPay(item,$index)"
 					 :code="item&&item.code">
-						<text :class="['iconfont','iconfontLeft']">{{item&&item.img}}</text>
+					 	<image :src="'../../static/img/'+item.img+'.png'" class="icon"></image>
 						<view class='payLi'>
 							<text class="msg">{{item&&item.msg}}</text>
-							<text class='iconfont icon'>&#xe658;</text>
+							<image :src="'../../static/img/icon-xuanzhong.png'" :class="[{'icon-xuanzhong':payIndex == $index},'icon']"></image>
 						</view>
 
 					</view>
@@ -337,9 +337,6 @@
 <style scoped="" lang="scss">
 	@import '../../common/skin.scss';
 	.add {
-		.iconfont{
-			font-size:46upx;
-		}
 		.add_fixed {
 			width: 100%;
 			position: fixed;
@@ -458,57 +455,22 @@
 			.payRow {
 				display: flex;
 				justify-content: space-between;
+				align-items: center;
 				height: 90upx;
 				line-height: 90upx;
 				font-size: 28upx;
-				&:nth-child(2){
-					.iconfontLeft {
-						color: #56abe4;
-					}
-				}
-				&:nth-child(3){
-					.iconfontLeft {
-						color: #3eb135;
-					}
-				}
-				&:nth-child(4){
-					.iconfontLeft {
-						color: #1296db;
-					}
-				}
-				&:nth-child(5){
-					.iconfontLeft {
-						color:#ffbb00;
-					}
-				}
-				&:nth-child(6){
-					.iconfontLeft {
-						color: #58bfbc;
-					}
-				}
-				&.on{
-					.payLi{
-						.icon{
-							display: block;
-						}
-					}
-				}
-				.iconfontLeft {
-					padding: 0 24upx;
-					font-size: 44upx;
-					color:$main;
-				}
-
+				padding-left:24upx;
 				.payLi {
 					width: 100%;
-					padding-right: 24upx;
+					padding:0 24upx;
 					border-bottom: 1upx solid $borderColor;
 					display: flex;
 					justify-content: space-between;
-					.iconfont {
-						color: $main;
+					align-items: center;
+					.icon {
 						display: none;
 					}
+					.icon-xuanzhong{display: block;}
 					
 				}
 			}

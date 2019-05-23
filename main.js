@@ -4,7 +4,6 @@ import store from "./store/index";
 import Public from './common/public.js'
 
 
-import './font/iconfont.css'
 import fileters from './common/filter';
 
 Vue.prototype.$store = store;

@@ -4,22 +4,22 @@
 			<form class="form">
 				<view class="mail">
 					<view class="section">
-						<text class="iconfont font">&#xe60c;</text>
+						<image src="../../static/img/icon-shouji.png" class="icon"></image>
 						<input v-model="mail" type="text" placeholder="请输入邮箱地址" placeholder-class="placeholder" />
 					</view>
-					<text class="iconfont" v-if="mail" @tap="clearModel('mail')">&#xe6ab;</text>
+					<image src="../../static/img/icon-danchuang-guanbi.png" class="icon" v-if="mail" @tap="clearModel('mail')"></image>
 				</view>
 				<view class="password">
 					<view class="section">
-						<text class="iconfont font">&#xe769;</text>
+						<image src="../../static/img/icon-mima.png" class="icon"></image>
 						<input v-model="password" :password="isOpen?false:true" type="text" maxlength="20" placeholder="请输入6-20位密码"
 						 placeholder-class="placeholder" />
 						<view class="eye" @click="isOpen=!isOpen">
-							<text class="iconfont" v-if="isOpen">&#xe681;</text>
-							<text class="iconfont" v-else>&#xe663;</text>
+							<image src="../../static/img/icon-yanjing.png" class="icon" v-if="isOpen"></image>
+							<image src="../../static/img/icon-bukejian.png" class="icon" v-else></image>
 						</view>
 					</view>
-					<text class="iconfont" v-if="password" @click="clearModel('password')">&#xe6ab;</text>
+					<image src="../../static/img/icon-danchuang-guanbi.png" class="icon" v-if="password" @tap="clearModel('password')"></image>
 				</view>
 			</form>
 			<view class="btn" @click="loginFun">
@@ -62,10 +62,11 @@
 			},
 			// 检验输入的数据
 			chechInfo() {
-				if (!this.$public.reg.mailReg.test(this.mail) && !this.$public.reg.nameReg.test(this.mail)) {
+				if (!this.mail) {
+					// if (!this.$public.reg.mailReg.test(this.mail) && !this.$public.reg.nameReg.test(this.mail)) {
 					uni.showToast({
 						icon: "none",
-						title: '请输入正确的邮箱地址',
+						title: '请输入正确的邮箱地址或者登录名',
 						duration: 2000
 					})
 
@@ -137,7 +138,9 @@
 
 	.loginMobile {
 		padding-top: 120upx;
-
+		.icon{
+			margin-right: 20upx;
+		}
 		.p {
 			text-align: center;
 			display: block;

@@ -11,13 +11,20 @@ export const store = new Vuex.Store({
 		out:[],
 		// 收入分类
 		come:[],
-		keyList:['1','2','3','\ue6ac','4','5','6','+','7','8','9','-','C','0','.','完成'],
+		keyList: ['1', '2', '3','icon-dengluye-shanchu','4','5','6','+','7','8','9','-','C','0','.','完成'],
 		payList:[
-			{"img":"\ue6c5","msg":'支付宝',"code":"Alipay"},
-			{"img":"\ue6ff","msg":'微信',"code":"WePay"},
-			{"img":"\ue608","msg":'银行卡',"code":"BankCard"},
-			{"img":"\ue6b9","msg":'现金',"code":"Cash"},
-			{"img":"\ue605","msg":'信用卡',"code":"CreditCard"},
+			{ "img":"icon-zhifubao","msg":'支付宝',"code":"Alipay"},
+			{ "img":"icon-weixin","msg":'微信',"code":"WePay"},
+			{ "img":"icon-xinyongqia2","msg":'银行卡',"code":"BankCard"},
+			{ "img":"icon-xianjin","msg":'现金',"code":"Cash"},
+			{ "img":"icon-xinyongqia","msg":'信用卡',"code":"CreditCard"},
+		],
+		indexList:[
+			"2019/06/29前,星杰艺校缴费，1200元20节舞蹈，1200元20节英语",
+			"爱乐梵目前剩余39节课时，因为搬家补偿6节课时",
+			"2019年6月21日，思嘉生产日,弟弟or妹妹?",
+			"2019年5月14日，去了康桥路1710号报案，打印了各种证件",
+			"2019年5月12日，思嘉准备修产假，如果顺产128天，修到2019年10月18日，如果剖143天，修到2019年11月2日",
 		]
 	},
 	getters:{

@@ -11,8 +11,8 @@
 							{{rangetime[0]}}&nbsp;-&nbsp;{{rangetime[1]}}
 						</template>
 					</text>&nbsp;&nbsp;
-					<text class="iconfont" v-if="showPicker">&#xe611;</text>
-					<text class="iconfont" v-else>&#xe7b3;</text>
+					<image src="../../static/img/icon-xiala.png" class="icon" v-if="showPicker"></image>
+					<image src="../../static/img/icon-xiala1.png" class="icon" v-else></image>
 				</view>
 				<text @click="showArr">筛选</text>
 			</view>
@@ -21,17 +21,13 @@
 		<view class="chart">
 			<view class="chart_top">
 				<view class="radio" @click="radioFun(0)">
-					<text :class="[{'on':isInCome}]">
-						<text class='iconfont' v-if="isInCome">&#xe6ba;</text>
-						<text class='iconfont' v-else>&#xe612;</text>
-					</text>
+					<image src="../../static/img/icon-radio2.png" class="icon" v-if="isInCome"></image>
+					<image src="../../static/img/icon-radio3.png" class="icon" v-else></image>
 					支出：&yen;{{comeTotalAmount}}
 				</view>
 				<view class="radio" @click="radioFun(1)">
-					<text :class="[{'on':!isInCome}]">
-						<text class='iconfont' v-if="!isInCome">&#xe6ba;</text>
-						<text class='iconfont' v-else>&#xe612;</text>
-					</text>
+					<image src="../../static/img/icon-radio2.png" class="icon" v-if="!isInCome"></image>
+					<image src="../../static/img/icon-radio3.png" class="icon" v-else></image>
 					收入：&yen;{{outTotalAmount}}
 				</view>
 			</view>
@@ -40,7 +36,7 @@
 			<view class="li" v-for="(item ,index) in list" :key="item">
 				<view class="liLeft">
 					<view class="liLeftBorder">
-						<text :class="[item && item.consumptionTypeIcon,'iconfont']"></text>
+						<image :src="'../../static/img/'+item.consumptionTypeIcon+'.png'" class="icon"></image>
 					</view>
 				</view>
 				<view class="liRight">
@@ -61,7 +57,16 @@
 		</view>
 		<lvv-popup position="bottom" ref="filterLvvpopref">
 			<view class="lvvpopref filterLvvpopref">
-				<text class="title">筛选类型</text>
+				<view class="iptName">
+					<text class="title">筛选类型</text>
+					<view class="type-ipt">
+						<view class="type-ipt-left">
+							<image src="../../static/img/icon-sousuo.png" class="icon"></image>
+							<input type="text" v-model="name" placeholder="快速搜索流水">
+						</view>
+						<image src="../../static/img/icon-danchuang-guanbi.png" class="icon" @tap="clearModel('name')" v-if='name'></image>
+					</view>
+				</view>
 				<view class="type">
 					<view :class="['type_li',{'on':getAllIndex == index}]" v-for="(item,index) in all"
 					 :key="item" @click="getAllFun(item,index)">
@@ -125,7 +130,8 @@
 				getInCometypeArr: [],
 				getConsumptionTypeIndex: -1,
 				getComeTypeIndex: -1,
-				consumptionTypeCode: ""
+				consumptionTypeCode: "",
+				name:''
 			};
 		},
 		onPullDownRefresh() { //监听用户下拉动作，一般用于下拉刷新
@@ -134,6 +140,9 @@
 			this.listFun();
 		},
 		methods: {
+			clearModel(params) {
+				this[params] = "";
+			},
 			showArr() {
 				this.getComeTypeIndex = -1;
 				this.getConsumptionTypeIndex = -1;
@@ -149,14 +158,12 @@
 					days = 30;
 				}else if(index == 2){
 					days = 90;
+				}else{
+					days = 3064;
 				}
 				var recent =  new Date(new Date().getTime()-86400000*days);//最近三天
 				sTime = recent.getFullYear()+"/"+ (recent.getMonth()+1)+"/"+ recent.getDate()+" 00:00:00";
 				eTime = (new Date().getFullYear()) + "/" + (new Date().getMonth() + 1) + "/" + (new Date().getDate()) +" 23:59:59";
-				if(index == 3){
-					sTime ="";
-					eTime ="";
-				}
 				
 				this.rangetime =[sTime,eTime];
 				this.getAllIndex = index;
@@ -225,7 +232,7 @@
 					startDate: this.rangetime[0],
 					endDate: this.rangetime[1],
 					consumptionTypeCode: this.consumptionTypeCode,
-					name: "",
+					name: this.name,
 					pageSize: this.pageSize,
 					pageIndex: this.pageIndex,
 				}
@@ -364,20 +371,12 @@
 				justify-content: space-between;
 
 				.radio {
-					.iconfont {
-						font-size: 24upx;
+					.icon {
+						width: 30upx;
+						height: 30upx;
 						margin-right: 10upx;
 					}
-
-					.on {
-						text {
-							color: $main
-						}
-
-					}
 				}
-
-
 			}
 		}
 
@@ -452,12 +451,42 @@
 			}
 
 			.type_name {
-				padding: 0 24upx 0;
+				padding: 0 24upx 24upx;
 				font-weight: bold;
 			}
-
+			.iptName{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px solid $borderColor;
+				padding: 24upx 0;
+				margin: 0 24upx 24upx;
+				.title{
+					border:0;
+					padding:0;
+					margin: 0;
+				}
+				.type-ipt{
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					background: $bg;
+					height:60upx;
+					line-height:60upx;
+					border-radius: 60upx;
+					padding: 0 15upx;
+					.type-ipt-left{
+						display: flex;
+						align-items: center;
+						input{
+							margin-left:2%;
+						}
+					}
+					
+				}
+			}
 			.type {
-				padding: 24upx;
+				padding:0 24upx;
 				display: flex;
 				flex-wrap: wrap;
 				font-size: 24upx;

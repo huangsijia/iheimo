@@ -10,17 +10,20 @@
 				</view>
 			</view>
 			<view class="categoryView">
-				<view :class="['remark',{'on':remarkTxt}]"  @click="remarkFun()">
-					<text class="iconfont">&#xe615;</text>
+				<view class="remark"  @click="remarkFun()">
+					<image src="../../static/img/icon-bianji1.png" v-if="remarkTxt" class="icon"></image>
+					<image src="../../static/img/icon-bianji.png" v-else class="icon"></image>
 				</view>
-				<view :class="['address',{'on':addressTxt}]"  @click="addressFun()">
-					<text class="iconfont">&#xe62b;</text>
+				<view class="address"  @click="addressFun()">
+					<image src="../../static/img/icon-didian1.png" v-if="addressTxt" class="icon"></image>
+					<image src="../../static/img/icon-didian.png" v-else class="icon"></image>
 				</view>
 			</view>
 		</view>
 		<view class="table">
 			<view :class="[{'iconfont':3 == $index},{'finish':15 == $index},'td']" v-for="(item,$index) in keyList" :key="$index" @click="num(item,$index)">
-				<text class="txt">{{item}}</text>
+				<image src="../../static/img/icon-dengluye-shanchu.png" class="icon" v-if="3 == $index"></image>
+				<text class="txt" v-else>{{item}}</text>
 			</view>
 		</view>
 	</view>
@@ -75,23 +78,12 @@
 					margin-right: 20upx;
 				}
 			}
-			.iconfont{
-				color:$ft-999;
-			}
 		}
 		.remark,.address{
 			margin-right: 20upx;
 			display: flex;
 			align-items: center;
 			justify-content:center;
-			.iconfont{
-				font-size: 44upx;
-			}
-			&.on{
-				.iconfont{
-					color:$main;
-				}
-			}
 		}
 	}
 	.table{

@@ -2,13 +2,13 @@
 	<view class="home">
 		<navigator url="/pages/personal/personal" hover-class="none" class="main">
 			<view class="user">
-				<text class="iconfont">&#xe606;</text>
+				<image :src="'../../static/img/icon-touxiang.png'" class="icon"></image>
 				<text>{{persion && persion.user.name}}</text>
 			</view>
 		</navigator>
 		<view class="white list">
 			<view class="list_li" v-for="(item,index) in list" :key="item">
-				<text class="iconfont">{{item.img}}</text>
+				<image :src="'../../static/img/'+item.img+'.png'" class="icon"></image>
 				<view>{{item.txt}}</view>
 			</view>
 		</view>
@@ -16,7 +16,7 @@
 			<view class="li" v-for="(item,index) in about" :key="item">
 				<navigator :url="item.url" hover-class="none">
 					{{item.txt}}
-					<text class="iconfont">&#xe6aa;</text>
+					<image :src="'../../static/img/icon-shezhi-youjiantou.png'" class="icon"></image>
 				</navigator>
 			</view>
 
@@ -38,19 +38,19 @@
 				persion: uni.getStorageSync("persion"),
 				list: [{
 						txt: '日程',
-						img: "\ue613"
+						img: "icon-richeng"
 					},
 					{
 						txt: '清单',
-						img: "\ue60a"
+						img: "icon-qingdan1"
 					},
 					{
 						txt: '计划',
-						img: "\ue6c1"
+						img: "icon-jihua1"
 					},
 					{
 						txt: '总结',
-						img: "\ue64f"
+						img: "icon-jihua2"
 					}
 				],
 				about: [{
@@ -104,34 +104,8 @@
 				text-align: center;
 				border-right: 1upx solid $borderColor;
 
-				text {
-					font-size: 60upx;
-				}
-
-				&:nth-child(1) {
-					text {
-						color: #56abe4;
-					}
-				}
-
-				&:nth-child(2) {
-					text {
-						color: #3eb135;
-					}
-				}
-
-				&:nth-child(3) {
-					text {
-						color: #1296db;
-					}
-				}
-
-				&:nth-child(4) {
-					border-right: 0;
-
-					text {
-						color: #ffbb00;
-					}
+				.icon {
+					margin-bottom: 20upx;
 				}
 			}
 		}
@@ -149,8 +123,7 @@
 			color: $white;
 			font-size: 30upx;
 
-			.iconfont {
-				font-size: 80upx;
+			.icon {
 				margin-right: 24upx;
 			}
 		}
@@ -161,6 +134,7 @@
 			navigator {
 				display: flex;
 				justify-content: space-between;
+				align-items: center;
 				font-size: 30upx;
 				height: 100upx;
 				line-height: 100upx;
@@ -172,12 +146,6 @@
 				navigator {
 					border-bottom: 0;
 				}
-			}
-
-			.iconfont {
-				font-size: 60upx;
-				padding-right: 12upx;
-				color: $borderColor;
 			}
 		}
 	}
