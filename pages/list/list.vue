@@ -33,7 +33,7 @@
 			</view>
 		</view>
 		<view v-if="list.length > 0 ">
-			<view class="li" v-for="(item ,index) in list" :key="item">
+			<view class="li" v-for="(item ,index) in list" :key="item" @click="toDetail(item)">
 				<view class="liLeft">
 					<view class="liLeftBorder">
 						<image :src="'../../static/img/'+item.consumptionTypeIcon+'.png'" class="icon"></image>
@@ -46,7 +46,7 @@
 							<text v-if="item && item.description">、{{item.description}}</text>
 							<text v-if="item && item.location">、{{item.location}}</text>
 						</text>
-						<text class="createDate">{{item.date}}</text>
+						<text class="createDate">{{item.date}}({{item.createBy}})</text>
 					</view>
 					<text :class="['amount',{'green':!isInCome}]">{{symbol}}{{item && item.amount}}元</text>
 				</view>
@@ -320,6 +320,11 @@
 					}
 				})
 			},
+			toDetail(params){
+				uni.reLaunch({
+					url: '/pages/detail/detail?params='+JSON.stringify(params)
+				});
+			}
 		},
 		onReachBottom() { //页面上拉触底事件的处理函数
 			if (this.isLoadMore) {
@@ -424,7 +429,8 @@
 			.amount {
 				width: 25%;
 				text-align: right;
-				color: $red;
+				display: flex;
+				flex-wrap:wrap;
 			}
 		}
 

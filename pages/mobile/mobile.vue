@@ -126,6 +126,11 @@
 		},
 		onLoad(e) {
 			this.redirect = e.redirect;
+			uni.showToast({
+				icon: 'none',
+				title: e.redirect,
+				duration: 2000
+			});
 		},
 		mounted() {
 

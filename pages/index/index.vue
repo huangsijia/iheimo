@@ -56,8 +56,8 @@
 				this.addFocus = true;
 			},
 			finishFun(){
-				uni.reLaunch({
-					url: "/pages/home/home"
+				uni.redirectTo({
+					url: "/pages/note/note"
 				})
 			}
 		},

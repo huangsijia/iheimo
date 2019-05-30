@@ -9,4 +9,25 @@ export default {
 		var arr = value.split('T');
 		return arr[0];
 	},
+	formatPay(value){
+		switch (value) {
+			case "Alipay":
+				return "支付宝";
+				break;
+			case "WePay":
+				return "微信";
+				break;
+			case "BankCard":
+				return "银行卡";
+				break;
+			case "Cash":
+				return "现金";
+				break;
+			case "CreditCard":
+				return "信用卡";
+				break;
+			default:
+				break;
+		}
+	}
 }
