@@ -321,7 +321,7 @@
 				})
 			},
 			toDetail(params){
-				uni.reLaunch({
+				uni.redirectTo({
 					url: '/pages/detail/detail?params='+JSON.stringify(params)
 				});
 			}
