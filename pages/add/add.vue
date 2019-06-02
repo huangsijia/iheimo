@@ -14,7 +14,7 @@
 			<view class="result">
 				<view class="result_left">
 					<view class="img">
-						<image :src="'../../static/img/'+record.icon+'.png'" class="icon"></image>
+						<image :src="'../../static/img/'+(record && record.icon)+'.png'" class="icon"></image>
 					</view>
 					<view class="txt">
 						<text>{{record && record.name}}</text>

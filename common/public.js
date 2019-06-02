@@ -32,7 +32,7 @@ export default{
 					var pages = getCurrentPages();
 					var page = pages[pages.length - 1];
 					uni.reLaunch({
-						url: '/pages/mobile/mobile?redirect=/' + page.route
+						url: '/pages/mobile/mobile?redirect=/pages/index/index'
 					})
 					return false;
                     }
