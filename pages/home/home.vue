@@ -62,7 +62,7 @@
 		},
 		methods: {
 			toNoteFun(params){
-				uni.redirectTo({
+				uni.navigateTo({
 					url: "/pages/note/note?type="+params
 				})
 			}

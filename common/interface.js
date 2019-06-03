@@ -14,6 +14,12 @@ export default{
 		//支出流水账查询
 		list:host+'/api/Consumption/list',
 		//收入流水账查询
-		inComeList:host+'/api/InCome/list'
+		inComeList:host+'/api/InCome/list',
+		//记事本查询 POST /api/NoteBook/list
+		noteBookList: host + '/api/NoteBook/list',
+		//修改记事本 PUT /api/NoteBook
+		//新增记事本 POST /api/NoteBook
+		//记事本删除 DELETE /api/NoteBook/{id}
+		noteBook: host + '/api/NoteBook',
 	}
 }

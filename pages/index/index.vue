@@ -10,7 +10,7 @@
 		</div>
 		<ul class="" v-for="(item,$index) in list" :key="item">
 			<li>
-				<div>
+				<div class="listLeft">
 					<p>{{$index+1}}：{{item.note}}</p>
 					<p class="mainFont" @click="modifyFun(item)">编辑</p>
 				</div>
@@ -206,7 +206,7 @@
 					params.completedIndex = 1;
 					params.completedCode = "false";
 				}
-				uni.redirectTo({
+				uni.navigateTo({
 					url: "/pages/indexDetail/indexDetail?params="+JSON.stringify(params)
 				})
 			},
@@ -305,6 +305,9 @@
 				text-align: right;
 				color:$ft-999;
 			}
+		}
+		.listLeft{
+			width: 60%;
 		}
 		.add {
 			height: 80upx;

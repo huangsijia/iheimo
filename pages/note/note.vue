@@ -9,7 +9,7 @@
 		</div>
 		<ul class="" v-for="(item,$index) in list" :key="item">
 			<li>
-				<div>
+				<div class="listLeft">
 					<p>{{$index+1}}：{{item.note}}</p>
 				</div>
 				<div class="date">
@@ -104,6 +104,9 @@
 				margin-left: 10upx;
 				text-align: right;
 				color:$ft-999;
+			}
+			.listLeft{
+				width: 60%;
 			}
 		}
 	}

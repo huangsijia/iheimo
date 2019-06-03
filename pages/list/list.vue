@@ -321,8 +321,8 @@
 				})
 			},
 			toDetail(params){
-				uni.redirectTo({
-					url: '/pages/detail/detail?params='+JSON.stringify(params)+"&isIncom="+this.isInCome
+				uni.navigateTo({
+					url: '/pages/detail/detail?params='+JSON.stringify(params)+"&isIncome="+this.isInCome
 				});
 			}
 		},

@@ -129,6 +129,7 @@
 			if(e && e.params){
 				this.initData = JSON.parse(e.params);
 				this.initData.paymentName = this.$filter.formatPay(this.initData.paymentMethodCode);
+				this.isInCome = e.isIncome
 			}
 		}
 	}
