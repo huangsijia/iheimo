@@ -322,7 +322,7 @@
 			},
 			toDetail(params){
 				uni.redirectTo({
-					url: '/pages/detail/detail?params='+JSON.stringify(params)
+					url: '/pages/detail/detail?params='+JSON.stringify(params)+"&isIncom="+this.isInCome
 				});
 			}
 		},

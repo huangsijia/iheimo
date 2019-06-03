@@ -436,67 +436,6 @@
 				font-size: 24upx;
 			}
 		}
-		.key {
-			width: 100%;
-			position: fixed;
-			bottom: 0;
-		}
 
-		.payList {
-			.text {
-				height: 100upx;
-				line-height: 100upx;
-				border-bottom: 1upx solid $borderColor;
-				display: block;
-				text-align: center;
-				font-size: 34upx;
-			}
-
-			.payRow {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				height: 90upx;
-				line-height: 90upx;
-				font-size: 28upx;
-				padding-left:24upx;
-				.payLi {
-					width: 100%;
-					padding:0 24upx;
-					border-bottom: 1upx solid $borderColor;
-					display: flex;
-					justify-content: space-between;
-					align-items: center;
-					.icon {
-						display: none;
-					}
-					.icon-xuanzhong{display: block;}
-					
-				}
-			}
-		}
-		.lvvpopref{
-			width: 750upx;
-			background: #FFFFFF;
-			position: absolute;
-			bottom:0;
-			font-size: 30upx;
-			&.paymentLvvpopref{				
-				height:600upx;
-			}
-			&.remarkLvvpopref,&.addressLvvpopref{				
-				height:120upx;
-				padding:24upx;
-				color: $ft-999;
-				display: flex;
-				line-height: 1.6;
-				textarea{
-					color: $ft-333;					
-				}
-			}
-			&.calendarLvvpopref{
-				height:80%;
-			}
-		}
 	}
 </style>

@@ -7,7 +7,7 @@
 			</view>
 		</navigator>
 		<view class="white list">
-			<view class="list_li" v-for="(item,index) in list" :key="item">
+			<view class="list_li" v-for="(item,index) in list" :key="item" @click="toNoteFun(index)">
 				<image :src="'../../static/img/'+item.img+'.png'" class="icon"></image>
 				<view>{{item.txt}}</view>
 			</view>
@@ -37,16 +37,12 @@
 			return {
 				persion: uni.getStorageSync("persion"),
 				list: [{
-						txt: '日程',
+						txt: '计划',
 						img: "icon-richeng"
 					},
 					{
-						txt: '清单',
+						txt: '备忘录',
 						img: "icon-qingdan1"
-					},
-					{
-						txt: '计划',
-						img: "icon-jihua1"
 					},
 					{
 						txt: '总结',
@@ -64,7 +60,13 @@
 				]
 			};
 		},
-		methods: {},
+		methods: {
+			toNoteFun(params){
+				uni.redirectTo({
+					url: "/pages/note/note?type="+params
+				})
+			}
+		},
 		mounted() {
 			if (!this.hasLogin) {
 				uni.redirectTo({
@@ -100,7 +102,7 @@
 			display: flex;
 
 			.list_li {
-				width: 25%;
+				width: 33.33%;
 				text-align: center;
 				border-right: 1upx solid $borderColor;
 

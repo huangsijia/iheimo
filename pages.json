@@ -62,13 +62,17 @@
         },{
             "path" : "pages/note/note",
             "style": {
-                "navigationBarTitleText": "已完成列表"
+                "navigationBarTitleText": "列表"
             }
         },{
             "path" : "pages/detail/detail",
             "style": {
                 "navigationBarTitleText": "列表详情"
             }
+        }
+        ,{
+            "path" : "pages/indexDetail/indexDetail",
+            "style" : {}
         }
     ],
     "tabBar" : {

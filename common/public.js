@@ -17,9 +17,12 @@ export default{
 		var data = config['data'] || {};
 		var _this = this;
 		config['success'] = config['success'] || function() {};
-		
+		let url = Interface.default.Model[config['url']]
+		if(config.query){
+			url = Interface.default.Model[config['url']] + "/" + config.query
+		}
 		config['xhr'] = uni.request({			
-			url: Interface.default.Model[config['url']],
+			url: url,
 			method: config['type'],
 			timeout: 10000, //超时时间设置，单位毫秒
 			contentType: "application/json; charset=utf-8",

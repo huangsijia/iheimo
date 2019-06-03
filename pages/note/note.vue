@@ -1,67 +1,74 @@
 <template> 
 	<view class="index">
 		<div class="title">
-			<h3>已完成列表</h3>
-			<image src="../../static/img/icon-add.png" class="icon" @click='add'></image>
+			<h3>
+				<template v-if="type == 1">备忘录</template>
+				<template v-else-if="type == 2">总结</template>
+				<template v-else>计划</template>
+				已完成列表</h3>
 		</div>
-		<ul class="" v-for="(item,$index) in indexList" :key="item">
+		<ul class="" v-for="(item,$index) in list" :key="item">
 			<li>
-				<p>{{$index+1}}：{{item}}</p>
+				<div>
+					<p>{{$index+1}}：{{item.note}}</p>
+				</div>
 				<div class="date">
-					<p>{{date}}</p>
-					<p class="finish" @click="finishFun">已完成</p>
+					<p>作者：{{item.createBy}}</p>
+					<p>日期：{{item.createDate}}</p>
 				</div>
 			</li>
 		</ul>
-		<lvv-popup position="bottom" ref="addLvvpopref">
-			<view class="lvvpopref addLvvpopref">
-				<textarea v-model="addTxt" :focus="addFocus" />	
-				<span class="addContent">添加</span>
-			</view>
-		</lvv-popup>
 	</view>
 </template>
 
 <script>
-	import lvvPopup from '../../components/lvv-popup/lvv-popup.vue'
-	import {mapState,mapMutations} from 'vuex'
 	export default {
-		components: {
-			lvvPopup
-		},
 		data() {
 			return {
-				date:"",
-				addTxt:"",
-				addFocus:false
+				list: [],
+				type:0,
+				pageSize: 150, // 每次最大返回条数
+				pageIndex: 0, // 起始条数
+				isLoadMore: true, // 加载更多
 			}
 		},
-		onLoad() {
-
-		},
-		computed: {
-			indexList() {
-				return this.$store.state.indexList;
-			},
+		onLoad(e) {
+			this.type = e.type;
 		},
 		methods: {
-			...mapMutations(['login']),
-			add(){
-				this.$refs.addLvvpopref.show();
-				this.addFocus = true;
-			},
-			finishFun(){
-				uni.reLaunch({
-					url: "/pages/home/home"
+			init() {
+				let sendData = {
+					pageSize: this.pageSize,
+					pageIndex: this.pageIndex,
+					type:this.type
+				}
+				this.$public.API_GET({
+					url: "noteBookList",
+					type: "POST",
+					data: sendData,
+					success: res => {
+						if (!res.data.success) {
+							uni.showToast({
+								icon: 'none',
+								title: res.data.message,
+								duration: 2000
+							});
+							return false;
+						}
+						if (res.data.data.length < this.pageSize) {
+							this.isLoadMore = false;
+						}
+						++this.pageIndex;
+						this.list = res.data.data;
+						this.list.forEach(ele => {
+							ele.createDate = this.$filter.formatDate(ele.createDate)
+						})
+					}
 				})
-			}
+			},
 		},
 		mounted(){
-			var persion = uni.getStorageSync("persion");
-			if(persion){
-				this.login(persion);
-			}
-			this.date=new Date().getFullYear()+"/"+(new Date().getMonth()+1)+"/"+new Date().getDate();
+			this.init();
 		}		
 	}
 </script>
@@ -86,40 +93,17 @@
 		ul{
 			padding:0 24upx;
 		}
-		li{
+		li {
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			border-bottom:1px solid $borderColor;
-			padding:24upx 0;
-			.date{
+			border-bottom: 1px solid $borderColor;
+			padding: 24upx 0;
+			color:$ft-333;
+			.date {
 				margin-left: 10upx;
-			}
-		}
-		.finish{
-			text-align: center;
-			text-decoration: underline;
-			color:$main;
-		}
-		.lvvpopref{
-			width: 100%;
-			background: #FFFFFF;
-			position: absolute;
-			bottom:0;
-			font-size: 30upx;
-			padding:24upx;
-			&.addLvvpopref{
-				min-height:120upx;
-				display: flex;
-			}
-			.addContent{
-				height: 60upx;
-				line-height: 60upx;
-				display: inline-block;
-				padding:0 24upx;
-				background: $main;
-				color:$white;
-				border-radius: 60upx;
+				text-align: right;
+				color:$ft-999;
 			}
 		}
 	}

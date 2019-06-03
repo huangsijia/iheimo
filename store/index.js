@@ -25,6 +25,15 @@ export const store = new Vuex.Store({
 			"2019年6月21日，思嘉生产日,弟弟or妹妹?",
 			"2019年5月14日，去了康桥路1710号报案，打印了各种证件",
 			"2019年5月12日，思嘉准备修产假，如果顺产128天，修到2019年10月18日，如果剖143天，修到2019年11月2日",
+		],
+		categoryList:[
+			{ "img": "icon-richeng", "msg": "计划", "code": 0 },
+			{ "img": "icon-qingdan1", "msg": "备忘录", "code": 1 },
+			{ "img": "icon-jihua2", "msg": "总结", "code": 2},
+		],
+		completedList: [
+			{ "img": "icon-yiwancheng", "msg": "已完成", "code": true },
+			{ "img": "icon-weiwancheng", "msg": "未完成", "code": false },
 		]
 	},
 	getters:{

@@ -1,5 +1,5 @@
 <template>
-	<view class="detail">
+	<view class="detail" v-if="initData">
 		<view class="title">
 			<view class="titleLeft">
 				<view class="img">
@@ -12,31 +12,49 @@
 		<view class="cont">
 			<view>
 				<text>时间：</text>
-				<text>{{initData.date}}</text>
+				<view>
+					<input type="text" v-model="initData.date">
+					<image src="../../static/img/icon-danchuang-guanbi.png" class="icon" v-if="initData.date" @tap="clearModel('date')"></image>
+				</view>
 			</view>
 			<view>
 				<text>支付方式：</text>
-				<text>{{initData.paymentName}}</text>
+				<view>
+					<input type="text" v-model="initData.paymentName">
+					<image src="../../static/img/icon-danchuang-guanbi.png" class="icon" v-if="initData.paymentName" @tap="clearModel('paymentName')"></image>
+				</view>
 			</view>
 			<view>
 				<text>用途：</text>
-				<text>{{initData.name}}</text>
+				<view>
+					<input type="text" v-model="initData.name">
+					<image src="../../static/img/icon-danchuang-guanbi.png" class="icon" v-if="initData.name" @tap="clearModel('name')"></image>
+				</view>
 			</view>
 			<view>
 				<text>作者：</text>
-				<text>{{initData.createBy}}</text>
+				<view>
+					<input type="text" v-model="initData.createBy">
+					<image src="../../static/img/icon-danchuang-guanbi.png" class="icon" v-if="initData.createBy" @tap="clearModel('createBy')"></image>
+				</view>
 			</view>
 			<view>
 				<text>描述：</text>
-				<text>{{initData.description}}</text>
+				<view>
+					<input type="text" v-model="initData.description">
+					<image src="../../static/img/icon-danchuang-guanbi.png" class="icon" v-if="initData.description" @tap="clearModel('description')"></image>
+				</view>
 			</view>
 			<view>
 				<text>地址：</text>
-				<text>{{initData.location}}</text>
+				<view>
+					<input type="text" v-model="initData.location">
+					<image src="../../static/img/icon-danchuang-guanbi.png" class="icon" v-if="initData.location" @tap="clearModel('location')"></image>
+				</view>
 			</view>
 		</view>
 		<view class="btnBottom">
-			<text @click="modifyDetail()">编辑</text>
+			<text @click="modifyDetail()">保存</text>
 			<text @click="deleteDetail()">删除</text>
 		</view>
 	</view>
@@ -46,54 +64,24 @@
 	export default {
 		data() {
 			return {
-				initData:{
-					amount:"251.00",
-					code:"c3f0bf7b-34be-40ce-a02b-9b09c797d1f9",
-					consumptionTypeCode:"41ab3f17-7ba6-46ca-aa8b-6eb35b78ee80",
-					consumptionTypeIcon:"icon-haizi",
-					consumptionTypeName:"子女",
-					createBy:"思嘉",
-					createDate:"2019-05-30T14:49:55.667",
-					date:"2019-05-30",
-					description:"当当网",
-					id:4067,
-					location:"淘宝",
-					name:"恩榕六一礼物",
-					note:null,
-					paymentMethodCode:"Alipay",
-					updateBy:null,
-					updateDate:"1900-01-01T00:00:00",
-					paymentName:""
-				}
+				initData:"",
+				isInCome:true,
 			}
 		},
 		methods: {
-			init(data){
-				// let sendData = data;
-				// this.$public.API_GET({
-				// 	url:"add",
-				// 	type:"PUT",
-				// 	data:sendData,
-				// 	success:res=>{
-				// 		if (!res.data.success) {
-				// 			uni.showToast({
-				// 				icon: 'none',
-				// 				title: res.data.message,
-				// 				duration: 2000
-				// 			});
-				// 			return false;
-				// 		}
-				// 		console.log(res)
-				// 	}
-				// })
+			clearModel(params) {
+				this.initData[params] = "";
 			},
-			modifyDetail(){},
-			deleteDetail(){
+			modifyDetail() {
+				let dataName="add";
+				if (this.isInCome) {
+					dataName = "InCome"
+				}
 				this.$public.API_GET({
-					url:"add",
-					type:"DELETE",
-					data:{id:this.initData.id},
-					success:res=>{
+					url: dataName,
+					type: "PUT",
+					data: this.initData,
+					success: res => {
 						if (!res.data.success) {
 							uni.showToast({
 								icon: 'none',
@@ -102,14 +90,46 @@
 							});
 							return false;
 						}
-						console.log(res)
+						this.$nextTick(function() {
+							uni.redirectTo({
+								url: '/pages/list/list'
+							});
+						})
+					}
+				})
+			},
+			deleteDetail() {
+				let dataName="add";
+				if (this.isInCome) {
+					dataName = "InCome"
+				}
+				this.$public.API_GET({
+					url: dataName,
+					type: "DELETE",
+					query: this.initData.id,
+					success: res => {
+						if (!res.data.success) {
+							uni.showToast({
+								icon: 'none',
+								title: res.data.message,
+								duration: 2000
+							});
+							return false;
+						}
+						this.$nextTick(function() {
+							uni.redirectTo({
+								url: '/pages/list/list'
+							});
+						})
 					}
 				})
 			}
 		},
-		onLoad(e){
-			this.init(JSON.parse(e.params))
-			this.initData.paymentName=this.$filter.formatPay(this.initData.paymentMethodCode);
+		onLoad(e) {
+			if(e && e.params){
+				this.initData = JSON.parse(e.params);
+				this.initData.paymentName = this.$filter.formatPay(this.initData.paymentMethodCode);
+			}
 		}
 	}
 </script>
@@ -117,67 +137,76 @@
 
 <style scoped="" lang="scss">
 	@import '../../common/skin.scss';
-.detail{
-	color:$ft-333;
-	.title{
-		height: 120upx;
-		border: 1px solid $borderColor;
-		padding:0 24upx;
-		display: flex;
-		justify-content: space-between;
-		background: $white;
-		align-items: center;
-		font-size: 30upx;
-		.titleLeft{
-			display: flex;
-			height: 80upx;
-			line-height: 80upx;
-		}
-		.img {
-			width: 80upx;
-			height: 80upx;
-			line-height: 80upx;
-			margin-right:15upx;
-			background: $bg;
-			border-radius: 50%;
-			text-align: center;
-		}
-		.amount{
-			font-size: 40upx;
-			color:$main;
-		}
-	}
-	.cont{
-		padding:24upx;
-		view{
+	.detail {
+		color: $ft-333;
+		.title {
+			height: 120upx;
+			border: 1px solid $borderColor;
+			padding: 0 24upx;
 			display: flex;
 			justify-content: space-between;
-			padding:12upx 0;
-			text{
-				&:first-child{
-					color:$ft-999;
+			background: $white;
+			align-items: center;
+			font-size: 30upx;
+			.titleLeft {
+				display: flex;
+				height: 80upx;
+				line-height: 80upx;
+			}
+			.img {
+				width: 80upx;
+				height: 80upx;
+				line-height: 80upx;
+				margin-right: 15upx;
+				background: $bg;
+				border-radius: 50%;
+				text-align: center;
+			}
+			.amount {
+				font-size: 40upx;
+				color: $main;
+			}
+		}
+		.cont {
+			padding: 24upx;
+			view {
+				display: flex;
+				justify-content: space-between;
+				padding: 12upx 0;
+				text {
+					&:first-child {
+						color: $ft-999;
+					}
+				}
+				view {
+					min-width: 50%;
+					border-radius: 2upx;
+					padding: 0 12upx;
+					border: 1px solid $borderColor;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+				}
+			}
+		}
+		.btnBottom {
+			width: 100%;
+			height: 40upx;
+			line-height: 40upx;
+			padding: 30upx 0;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			border-top: 1px solid $borderColor;
+			text-align: center;
+			display: flex;
+			color: $main;
+			text {
+				width: 50%;
+				&:first-child {
+					border-right: 1px solid $borderColor;
 				}
 			}
 		}
 	}
-	.btnBottom{
-		width: 100%;
-		height: 40upx;
-		line-height: 40upx;
-		padding: 30upx 0;
-		position: fixed;
-		bottom:0;
-		left:0;
-		border-top:1px solid $borderColor;
-		text-align: center;
-		display: flex;
-		color: $main;
-		text{
-			width: 50%;
-			&:first-child{
-				border-right:1px solid $borderColor;
-			}
-		}
-	}
-}
 </style>
