@@ -315,12 +315,29 @@
 							ele.amount = this.$filter.formatMoney(ele.amount)
 						});
 						this.list.forEach(ele => {
-							ele.date = this.$filter.formatDate(ele.date)
+							ele.date = this.$filter.formatDate(ele.date);
 						});
 					}
 				})
 			},
 			toDetail(params){
+				if(params.paymentMethodCode == "Alipay"){
+					params.paymentTxt = "支付宝";
+					params.paymentIndex = 0;
+				}else if(params.paymentMethodCode == "WePay"){
+					params.paymentTxt = "微信";
+					params.paymentIndex = 1;
+				}else if(params.paymentMethodCode == "BankCard"){
+					params.paymentTxt = "银行卡";
+					params.paymentIndex = 2;
+				}else if(params.paymentMethodCode == "Cash"){
+					params.paymentTxt = "现金";
+					params.paymentIndex = 3;
+				}else{
+					params.paymentTxt = "信用卡";
+					params.paymentIndex = 4;
+				}
+				params.paymentCode = params.paymentMethodCode;
 				uni.navigateTo({
 					url: '/pages/detail/detail?params='+JSON.stringify(params)+"&isIncome="+this.isInCome
 				});

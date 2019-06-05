@@ -30,8 +30,8 @@
 			</view>
 		</view>
 		<view class="btnBottom">
-			<text @click="modifyDetail()">保存</text>
-			<text @click="deleteDetail()">删除</text>
+			<text @click="showModal(0)">保存</text>
+			<text @click="showModal(1)">删除</text>
 		</view>
 		<view class="key" v-if="showKey">
 			<index-key @categoryEmit="categoryFun" @completedEmit="completedFun"></index-key>
@@ -99,6 +99,26 @@
 		methods: {
 			clearModel(params) {
 				this.initData[params] = "";
+			},
+			showModal(params){
+				let my = this;
+				let con = "确定保存此内容？"
+				if(params){
+					con = "确定删除此内容？"
+				}
+				uni.showModal({
+					title: '提示',
+					content: con,
+					success: function (res) {
+						if (res.confirm) {
+							if(params){
+								my.deleteDetail();
+							}else{
+								my.modifyDetail();
+							}
+						} 
+					}
+				});
 			},
 			modifyDetail() {
 				this.$public.API_GET({

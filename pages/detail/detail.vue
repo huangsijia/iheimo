@@ -7,7 +7,10 @@
 				</view>
 				<text>{{initData.consumptionTypeName}}</text>
 			</view>
-			<view class="amount">{{initData.amount}}</view>
+			<view class="amount">
+				<input type="text" v-model="initData.amount">
+				<image src="../../static/img/icon-danchuang-guanbi.png" class="icon" @tap="clearModel('amount')"></image>
+			</view>
 		</view>
 		<view class="cont">
 			<view>
@@ -19,9 +22,9 @@
 			</view>
 			<view>
 				<text>支付方式：</text>
-				<view>
-					<input type="text" v-model="initData.paymentName">
-					<image src="../../static/img/icon-danchuang-guanbi.png" class="icon" v-if="initData.paymentName" @tap="clearModel('paymentName')"></image>
+				<view class="select" @click="payment">
+					{{initData.paymentTxt}}
+					<image src="../../static/img/icon-xiala.png" class="icon"></image>
 				</view>
 			</view>
 			<view>
@@ -54,27 +57,86 @@
 			</view>
 		</view>
 		<view class="btnBottom">
-			<text @click="modifyDetail()">保存</text>
-			<text @click="deleteDetail()">删除</text>
+			<text @click="showModal(0)">保存</text>
+			<text @click="showModal(1)">删除</text>
 		</view>
+		<view class="key" v-if="showKey">
+			<key @paymentEmit="payment" @calendarEmit="calendarFun" ></key>
+		</view>
+		<lvv-popup position="bottom" ref="paymentLvvpopref">
+			<view class="lvvpopref paymentLvvpopref">
+				<view class="payList">
+					<text class="text">选择账户</text>
+					<view :class="[{'on':initData.paymentIndex == $index},'payRow']" v-for="(item,$index) in payList" :key="item" @click="selectPay(item,$index)"
+					 :code="item&&item.code">
+					 	<image :src="'../../static/img/'+item.img+'.png'" class="icon"></image>
+						<view class='payLi'>
+							<text class="msg">{{item&&item.msg}}</text>
+							<image :src="'../../static/img/icon-xuanzhong.png'" :class="[{'icon-xuanzhong':initData.paymentIndex == $index},'icon']"></image>
+						</view>
+
+					</view>
+				</view>
+			</view>
+		</lvv-popup>
 	</view>
 </template>
 
 <script>
+	import key from '../../component/key.vue';
+	import lvvPopup from '../../components/lvv-popup/lvv-popup.vue'
+	import calendar from '../../components/uni-calendar/uni-calendar'
 	export default {
+		computed: {
+			payList() {
+				return this.$store.state.payList;
+			}
+		},
+		components: {
+			key,
+			lvvPopup,
+			calendar
+		},
 		data() {
 			return {
-				initData:"",
+				initData:{
+					paymentTxt:"",
+					paymentCode:"",
+					paymentIndex:"",
+				},
 				isInCome:true,
+				
 			}
 		},
 		methods: {
 			clearModel(params) {
 				this.initData[params] = "";
 			},
+			showModal(params){
+				let my = this;
+				let con = "确定保存此内容？"
+				if(params){
+					con = "确定删除此内容？"
+				}
+				uni.showModal({
+					title: '提示',
+					content: con,
+					success: function (res) {
+						if (res.confirm) {
+							if(params){
+								my.deleteDetail();
+							}else{
+								my.modifyDetail();
+							}
+						} 
+					}
+				});
+			},
 			modifyDetail() {
 				let dataName="add";
-				if (this.isInCome) {
+				if (this.isInCome === "true") {
+					dataName = "add"
+				}else{
 					dataName = "InCome"
 				}
 				this.$public.API_GET({
@@ -100,7 +162,9 @@
 			},
 			deleteDetail() {
 				let dataName="add";
-				if (this.isInCome) {
+				if (this.isInCome === "true") {
+					dataName = "add"
+				}else{
 					dataName = "InCome"
 				}
 				this.$public.API_GET({
@@ -123,13 +187,24 @@
 						})
 					}
 				})
-			}
+			},
+			//li切换class
+			selectPay(item, index) {
+				this.initData.paymentTxt = item.msg;
+				this.initData.paymentIndex = index;
+				this.initData.paymentCode = item.code;
+				this.initData.paymentMethodCode = item.code;
+				this.$refs.paymentLvvpopref.close();
+			},
+			//支付方式
+			payment() {
+				this.$refs.paymentLvvpopref.show();
+			},
 		},
 		onLoad(e) {
 			if(e && e.params){
 				this.initData = JSON.parse(e.params);
-				this.initData.paymentName = this.$filter.formatPay(this.initData.paymentMethodCode);
-				this.isInCome = e.isIncome
+				this.isInCome = e.isIncome;
 			}
 		}
 	}
@@ -164,8 +239,18 @@
 				text-align: center;
 			}
 			.amount {
+				width: 350upx;
 				font-size: 40upx;
 				color: $main;
+				border-radius: 2upx;
+				padding: 0 12upx;
+				border: 1px solid $borderColor;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				input{
+					width: 80%;
+				}
 			}
 		}
 		.cont {
@@ -180,13 +265,19 @@
 					}
 				}
 				view {
-					min-width: 50%;
+					width: 350upx;
 					border-radius: 2upx;
 					padding: 0 12upx;
 					border: 1px solid $borderColor;
 					display: flex;
 					justify-content: space-between;
-					align-items: center;
+					align-items: top;
+					&.select{
+						width: 350upx;
+						border: 1px solid $borderColor;
+						padding:12upx;
+						text-align: left;
+					}
 				}
 			}
 		}

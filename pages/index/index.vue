@@ -8,19 +8,21 @@
 		<div class="title">
 			<h3>记事本</h3>
 		</div>
-		<ul class="" v-for="(item,$index) in list" :key="item">
-			<li>
-				<div class="listLeft">
-					<p>{{$index+1}}：{{item.note}}</p>
-					<p class="mainFont" @click="modifyFun(item)">编辑</p>
-				</div>
-				<div class="date">
-					<p class="mainFont" v-if="item.isComplete" @click="finishFun">已完成</p>
-					<p>作者：{{item.createBy}}</p>
-					<p>日期：{{item.createDate}}</p>
-				</div>
-			</li>
-		</ul>
+		<div class="ul">
+			<ul class="" v-for="(item,$index) in list" :key="item">
+				<li>
+					<div class="listLeft"  @click="modifyFun(item)">
+						<p>{{$index+1}}：{{item.note}}</p>
+						<p class="mainFont">编辑</p>
+					</div>
+					<div class="date">
+						<p class="mainFont" v-if="item.isComplete" @click="finishFun">已完成</p>
+						<p>作者：{{item.createBy}}</p>
+						<p>日期：{{item.createDate}}</p>
+					</div>
+				</li>
+			</ul>
+		</div>
 		<view class="key">
 			<index-key @calendarEmit="calendarFun" @categoryEmit="categoryFun" @completedEmit="completedFun" @remarkEmit="remarkFun"></index-key>
 		</view>
@@ -114,6 +116,7 @@
 			this.init();
 		},
 		methods: {
+			...mapMutations(['login']),
 			init() {
 				let sendData = {
 					pageSize: this.pageSize,
@@ -252,6 +255,10 @@
 		},
 		mounted() {
 			this.init();
+			var persion = uni.getStorageSync("persion");
+			if(persion){
+				this.login(persion);
+			}
 		}
 	}
 </script>
@@ -292,6 +299,10 @@
 		}
 		ul {
 			padding: 0 24upx;
+			
+		}
+		ul:last-child{
+			margin-bottom: 150upx;
 		}
 		li {
 			display: flex;
